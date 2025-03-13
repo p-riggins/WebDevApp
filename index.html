@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login form</title>
+    <link rel="stylesheet" href="/style.css">   
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+</head>
+
+<body>
+    <div class="form-container">
+        <form id="signup" class="form">
+            <h1>Login</h1>
+            <div class="input-box">
+                <label for="username" class="form-label">Username / Employee ID</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Enter your Username / Employee ID" required>
+                <small></small>
+                <!-- <i class='bx bxs-user'></i> -->
+            </div>
+
+            <div class="input-box">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter your Password" required>
+                <small></small>
+                <!-- <i class='bx bxs-lock-alt'></i> -->
+            </div>
+
+            <div>
+                <input type="checkbox" class="show-password" onclick="myFunction()">Show Password
+            </div>
+
+            <div class="input-box">
+                <button type="submit" class="btn" id="loginButton">Login</button>
+                <small></small>
+            </div>
+
+            <div class="register-link">
+                <p>Don't have an account? <a href="register.html">Register</a></p>
+            </div>
+
+
+        </form>
+    </div>
+    <script src="/login.js"></script>
+</body>
+
+</html>
+
+
