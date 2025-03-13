@@ -1,0 +1,194 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body { 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background: url('/img.jpg') no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.form-container {
+    width: 420px;
+    border: 2px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(40px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+    background: #b19465;
+    color: #fff;
+    border-radius: 10px;
+    padding: 30px 40px;
+}
+
+.form-container h1 {
+    font-size: 36px;
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+.form-control {
+    width: 100%;
+    height: 50px;
+    background: #c4ae98;
+    border: none;
+    outline: 0;
+    border-radius: 40px;
+    border: 2px solid rgba(255, 255, 255, .2); 
+    font-size: 16px;
+    color: #fff;
+    padding: 20px 45px 20px 20px;
+    position: relative;
+    margin: 5px 0;
+}
+
+.input-box input::placeholder {
+    color: #fff;
+}
+
+.input-box input {
+    margin-top: 5px;
+    margin-bottom: 8px;
+}
+
+.input-box label {
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: #fff;
+    font-weight: 500;
+}
+
+.input-box i {
+    position: relative;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+}
+
+.input-box input:focus {
+    outline: none;
+}
+
+/* .input-box.error input {
+    border-color: #e04656;
+    font-weight: bold;
+} */
+
+
+.input-box small {
+    color: #d62133;
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+.form-container .remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14.5px;
+    margin: -15px 0 15px;
+}
+
+.remember-forgot label input {
+    accent-color: #fff;
+    /* font-size: 1.15rem; */
+    margin-right: 3px;
+    margin-top: 10px;
+}
+
+.remember-forgot a {
+    padding-top: 10px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
+
+.form-container .btn {
+    width: 100%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+}
+
+.content {
+    position: relative;
+}
+
+button#loginButton.btn {
+    margin-bottom: 10px;
+}
+
+
+.submit-btn {
+    background-color: #ddb892;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1rem;
+    opacity: 0.6; /* Initially disabled */
+    pointer-events: none; /* Initially disabled */
+}
+.submit-btn.enabled {
+    opacity: 1; /* Enabled */
+    pointer-events: auto; /* Enabled */
+}
+.submit-btn:hover {
+    background-color: #0056b3;
+}
+
+.form-container .register-link {
+    font-size: 14.5px;
+    text-align: center;
+    margin: 15px 0 10px;
+}
+
+.register-link p a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link p a:hover {
+    text-decoration: underline;
+}
+
+/* .error {
+    color: red;
+    font-size: 1.15rem;
+    font-weight: bold;
+}
+.success {
+    color: rgb(83, 231, 83);
+    font-size: 1.15rem;
+    font-weight: bold;
+} */
+
+.show-password {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    accent-color: #007BFF;
+    margin-bottom: 10px;
+}
