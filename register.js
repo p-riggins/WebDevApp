@@ -1,9 +1,10 @@
+// Validate the registration form on input
 document.getElementById('registrationForm').addEventListener('input', function () {
     validateForm();
 });
 
 function validateForm() {
-    const username = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
     const submitBtn = document.getElementById('submitBtn');
@@ -11,8 +12,8 @@ function validateForm() {
 
     let isValid = true;
 
-    // Check if all fields are filled
-    if (!username || !password || !confirmPassword) {
+    // Ensure all required fields (email, password, confirmPassword) are filled
+    if (!email || !password || !confirmPassword) {
         isValid = false;
     }
 
@@ -28,7 +29,6 @@ function validateForm() {
         errorElement.classList.add('success');
     }
 
-
     if (isValid) {
         submitBtn.classList.add('enabled');
         submitBtn.disabled = false;
@@ -38,6 +38,19 @@ function validateForm() {
     }
 }
 
+// Simulate registration on submit button click
+document.getElementById('submitBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+    // Run validation one more time
+    validateForm();
+    const submitBtn = document.getElementById('submitBtn');
+    if (!submitBtn.disabled) {
+         alert("Registration successful!");
+         // Optionally, clear the form or redirect the user.
+    } else {
+         alert("Please fix the errors in the form.");
+    }
+});
 
 function myFunction() {
     var passwordField = document.getElementById("password");
@@ -50,12 +63,10 @@ function myFunction() {
         passwordField.type = "password";
     }
     
-
-    // Toggle visibility for confirm password field (for register page)
+    // Toggle visibility for confirm password field
     if (confirmPasswordField.type === "password") {
         confirmPasswordField.type = "text";
     } else {
         confirmPasswordField.type = "password";
     }
 }
-

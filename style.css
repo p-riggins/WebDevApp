@@ -24,7 +24,7 @@ body {
   border: 2px solid rgba(255, 255, 255, .2); /* Semi-transparent border */
   backdrop-filter: blur(40px); /* Blur effect behind container */
   box-shadow: 0 0 30px rgba(0, 0, 0, .5); /* Drop shadow */
-  background: #b19465; /* Fallback solid color */
+  background: #7cbc95; /* Fallback solid color */
   color: #fff; /* Text color */
   border-radius: 10px; /* Rounded corners */
   padding: 30px 40px; /* Inner spacing */
@@ -34,14 +34,14 @@ body {
 .form-container h1 {
   font-size: 36px;
   text-align: center;
-  padding-bottom: 30px;
+  padding-bottom: 10px;
 }
 
 /* Common input field styling */
 .form-control {
   width: 100%;
   height: 50px;
-  background: #c4ae98; /* Input background color */
+  background: #7EBD77; /* Input background color */
   border: none;
   outline: 0;
   border-radius: 40px;
@@ -66,7 +66,7 @@ body {
 
 /* Label inside the input field that verbally describes its purpose in a complete sentence (for example: "Input for First Name"), positioned inside the container for clarity */
 .input-box label {
-  position: absolute;
+  /* position: absolute; */
   top: 50%;
   left: 20px;
   transform: translateY(-50%);
@@ -107,7 +107,7 @@ body {
 }
 
 /* Styling checkbox inside remember-forgot */
-.remember-forgot label input {
+.remember-forgot p {
   accent-color: #fff;
   margin-right: 3px;
   margin-top: 10px;
@@ -144,7 +144,7 @@ button#loginButton.btn {
 
 /* Submit button disabled/enabled states */
 .submit-btn {
-  background-color: #ddb892;
+  background-color: #69996c;
   color: #fff;
   border: none;
   padding: 10px;
