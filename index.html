@@ -14,24 +14,24 @@
             <h1>Login</h1>
             <div class="input-box">
                 <label for="username" class="form-label">Email</label>
-                <input type="text" class="form-control" id="username" name="username" placeholder="Enter your Email" required>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Enter your Email" aria-label="Input for your Email address" required>
                 <small></small>
                 <!-- <i class='bx bxs-user'></i> -->
             </div>
 
             <div class="input-box">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter your Password" required>
+                <input type="password" class="form-control" id="password" placeholder="Enter your Password" aria-label="Input for your Password" required>
                 <small></small>
                 <!-- <i class='bx bxs-lock-alt'></i> -->
             </div>
 
             <div>
-                <input type="checkbox" class="show-password" onclick="myFunction()">Show Password
+                <input type="checkbox" class="show-password" aria-label="Checkbox to show or hide your password" onclick="myFunction()">Show Password
             </div>
 
             <div class="input-box">
-                <button type="submit" class="btn" id="loginButton">Login</button>
+                <button type="submit" class="btn" id="loginButton" aria-label="Button to log in to your account">Login</button>
                 <small></small>
             </div>
 

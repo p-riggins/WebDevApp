@@ -21,12 +21,12 @@
 
             <div class="input-box">
                 <label for="fname" class="form-label">First Name*</label>
-                <input type="text" class="form-control" id="fname" name="first name" placeholder="Enter your First Name*" required>
+                <input type="text" class="form-control" id="fname" name="first name" placeholder="Enter your First Name*" aria-label="Input for your First Name" required>
             </div>
 
             <div class="input-box">
                 <label for="lname" class="form-label">Last Name*</label>
-                <input type="text" class="form-control" id="lname" name="last name" placeholder="Enter your Last Name*" required>
+                <input type="text" class="form-control" id="lname" name="last name" placeholder="Enter your Last Name*" aria-label="Input for your Last Name" required>
             </div>
 
             <!-- <div class="input-box">
@@ -36,26 +36,26 @@
 
             <div class="input-box">
                 <label for="email" class="form-label">Email*</label>
-                <input type="text" class="form-control" id="email" name="Email" placeholder="Enter your Email*" required>
+                <input type="text" class="form-control" id="email" name="Email" placeholder="Enter your Email*" aria-label="Input for your Email address" required>
             </div>
 
             <div class="input-box">
                 <label for="password" class="form-label">Password*</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter your Password*" required>
+                <input type="password" class="form-control" id="password" placeholder="Enter your Password*" aria-label="Input for your Password" required>
             </div>
 
             <div class="input-box">
                 <label for="confirmPassword" class="form-label">Confirm Password*</label>
-                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password*" required>
+                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password*" aria-label="Input to confirm your Password" required>
                 <span id="passwordError" class="error"></span>
             </div>
 
             <label>
-                <input type="checkbox" class="show-password" onclick="myFunction()">Show Password
+                <input type="checkbox" class="show-password" aria-label="Checkbox to show or hide your password fields" onclick="myFunction()">Show Password
             </label>
 
             <br>
-            <button type="button" class="submit-btn" id="submitBtn">Create</button>
+            <button type="button" class="submit-btn" aria-label="Button to create an instructor account" id="submitBtn">Create</button>
             <div id="result"></div>
 
             <script>

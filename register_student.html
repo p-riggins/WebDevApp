@@ -21,43 +21,43 @@
 
             <div class="input-box">
                 <label for="fname" class="form-label">First Name*</label>
-                <input type="text" class="form-control" id="fname" name="first name" placeholder="Enter your First Name*" required>
+                <input type="text" class="form-control" id="fname" aria-label="Input for your First Name" name="first name" placeholder="Enter your First Name*" required>
             </div>
 
             <div class="input-box">
                 <label for="lname" class="form-label">Last Name*</label>
-                <input type="text" class="form-control" id="lname" name="last name" placeholder="Enter your Last Name*" required>
+                <input type="text" class="form-control" id="lname" name="last name" aria-label="Input for your Last Name" placeholder="Enter your Last Name*" required>
             </div>
 
             <div class="input-box">
                 <label for="contactdetails" class="form-label">Contact Details</label>
-                <input type="text" class="form-control" id="phonenumber" name="Phone Number" placeholder="Enter your Phone Number">
-                <input type="text" class="form-control" id="discord" name="discord" placeholder="Enter your Discord">
-                <input type="text" class="form-control" id="teams" name="teams" placeholder="Enter your Teams">
+                <input type="text" class="form-control" id="phonenumber" aria-label="Input for your Phone Number" name="Phone Number" placeholder="Enter your Phone Number">
+                <input type="text" class="form-control" id="discord" name="discord" aria-label="Input for your Discord username" placeholder="Enter your Discord">
+                <input type="text" class="form-control" id="teams" name="teams" aria-label="Input for your Microsoft Teams username" placeholder="Enter your Teams">
             </div>
 
             <div class="input-box">
                 <label for="email" class="form-label">Email*</label>
-                <input type="text" class="form-control" id="email" name="Email" placeholder="Enter your Email*" required>
+                <input type="text" class="form-control" id="email" name="Email" aria-label="Input for your Email address" placeholder="Enter your Email*" required>
             </div>
 
             <div class="input-box">
                 <label for="password" class="form-label">Password*</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter your Password*" required>
+                <input type="password" class="form-control" id="password" aria-label="Input for your Password" placeholder="Enter your Password*" required>
             </div>
 
             <div class="input-box">
                 <label for="confirmPassword" class="form-label">Confirm Password*</label>
-                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password*" required>
+                <input type="password" class="form-control" id="confirmPassword" aria-label="Input to confirm your Password" placeholder="Confirm Password*" required>
                 <span id="passwordError" class="error"></span>
             </div>
 
             <label>
-                <input type="checkbox" class="show-password" onclick="myFunction()">Show Password
+                <input type="checkbox" class="show-password" aria-label="Checkbox to show or hide your password fields" onclick="myFunction()">Show Password
             </label>
 
             <br>
-            <button type="button" class="submit-btn" id="submitBtn">Create</button>
+            <button type="button" class="submit-btn" aria-label="Button to create a student account" id="submitBtn">Create</button>
             <div id="result"></div>
 
             <script>
