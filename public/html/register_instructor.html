@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register form</title>
     <!-- <link rel="stylesheet" href="/lib/bootstrap.min.css"> -->
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>   
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
 </head>
@@ -58,39 +58,38 @@
             <button type="button" class="submit-btn" aria-label="Button to create an instructor account" id="submitBtn">Create</button>
             <div id="result"></div>
 
-            <script>
-            $(document).ready(function() {
-                $('#submitBtn').click(function(event) {
-                    event.preventDefault();
-                    $.ajax({
-                        url: "http://localhost:80/register",
-                        method: "POST",
-                        contentType: "application/json",
-                        data: JSON.stringify({
-                            FirstName: $('#fname').val(),
-                            LastName: $('#lname').val(),
-                            EmailAddress: $('#email').val(),
-                            Username: $('#username').val(),
-                            Password: $('#password').val(),
-                        }),
-                        success: function(response)
-                        {
-                            $('#result').html('User registered successfully');
-                        },
-                        error: function(response)
-                        {
-                            $('#result').html('User registration failed');
-                        }
-                    });
-                });
-            });
-            </script>
-
             <div class="register-link">
                 <p>Have an account? <a href="index.html">Back to Login</a></p>
             </div>
         </form>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('#submitBtn').click(function(event) {
+                event.preventDefault();
+                $.ajax({
+                    url: "http://localhost:80/register",
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        FirstName: $('#fname').val(),
+                        LastName: $('#lname').val(),
+                        EmailAddress: $('#email').val(),
+                        Username: $('#username').val(),
+                        Password: $('#password').val(),
+                    }),
+                    success: function(response)
+                    {
+                        $('#result').html('User registered successfully');
+                    },
+                    error: function(response)
+                    {
+                        $('#result').html('User registration failed');
+                    }
+                });
+            });
+        });
+    </script>
     <script src="/register.js"></script>
 </body>
 </html>
