@@ -45,13 +45,12 @@ body {
 .form-container h1 {
   font-size: 36px;
   text-align: center;
-  margin-bottom: 10px;
 }
 
 /* Input fields and labels */
 .input-box {
   position: relative;
-  margin: 10px 0;
+  margin: 5px 0;
 }
 
 .input-box input {
@@ -63,7 +62,7 @@ body {
   border: 2px solid rgba(255, 255, 255, 0.2);
   font-size: 16px;
   color: #fff;
-  padding: 0 45px 0 20px;
+  /* padding: 0 45px 0 20px; */
 }
 
 .input-box input::placeholder {
