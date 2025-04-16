@@ -70,3 +70,75 @@ function myFunction() {
         confirmPasswordField.type = "password";
     }
 }
+
+// Global array to store registered users
+const registeredUsers = [];
+
+// Function to handle instructor registration
+function registerInstructor() {
+  console.log('Instructor registration triggered');
+  const firstName = document.getElementById('fname_instructor').value;
+  const lastName = document.getElementById('lname_instructor').value;
+  const email = document.getElementById('email_instructor').value;
+
+  if (firstName && lastName && email) {
+    registeredUsers.push({
+      firstName,
+      lastName,
+      email,
+      role: 'Instructor',
+    });
+
+    console.log('Instructor registered:', { firstName, lastName, email });
+    alert('Instructor registered successfully!');
+    showSection('registeredUsersSection');
+    populateRegisteredUsersTable();
+  } else {
+    alert('Please fill out all required fields.');
+  }
+}
+
+// Function to handle student registration
+function registerStudent() {
+  console.log('Student registration triggered');
+  const firstName = document.getElementById('fname_student').value;
+  const lastName = document.getElementById('lname_student').value;
+  const email = document.getElementById('email_student').value;
+
+  if (firstName && lastName && email) {
+    registeredUsers.push({
+      firstName,
+      lastName,
+      email,
+      role: 'Student',
+    });
+
+    console.log('Student registered:', { firstName, lastName, email });
+    alert('Student registered successfully!');
+    showSection('registeredUsersSection');
+    populateRegisteredUsersTable();
+  } else {
+    alert('Please fill out all required fields.');
+  }
+}
+
+// Function to populate the registered users table
+function populateRegisteredUsersTable() {
+  const tableBody = document.querySelector('#registeredUsersTable tbody');
+  tableBody.innerHTML = ''; // Clear existing rows
+
+  registeredUsers.forEach((user) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${user.firstName}</td>
+      <td>${user.lastName}</td>
+      <td>${user.email}</td>
+      <td>${user.role}</td>
+    `;
+    tableBody.appendChild(row);
+  });
+}
+
+// Ensure event listeners are properly attached
+document.getElementById('submitBtnInstructor').addEventListener('click', registerInstructor);
+document.getElementById('submitBtnStudent').addEventListener('click', registerStudent);

@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>SPA Application</title>
+
+    <!-- jQuery & Other JS Libraries -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap (optional, if used in the dashboard) -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+    />
+
+    <!-- SB Admin / Dashboard CSS -->
+    <!-- <link href="assets/css/dashboard.css" rel="stylesheet" /> -->
+    <!-- Login/Register CSS -->
+    <!-- <link href="assets/css/style.css" rel="stylesheet" /> -->
+
+    <link rel="stylesheet" href="../assets/css/style.css" />
+
+    
+    <!-- Font Awesome (SB Admin icons) -->
+    <script
+      src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      /* Hide all sections by default; we'll show only the active one */
+      .spa-section {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body class="login-page" id="appBody">
+    <!-- 
+      We'll put all your sections in <div> blocks with IDs.
+      By default, we can show the login section. 
+      Then your showSection('sectionId') logic can reveal the rest.
+    -->
+
+    <!-- 1) LOGIN SECTION (from index.html) -->
+    <div id="loginSection" class="spa-section">
+      <div class="form-container">
+        <form id="signup" class="form">
+          <h1>Login</h1>
+          <div class="input-box">
+            <label for="username" class="form-label">Email</label>
+            <input
+              type="text"
+              class="form-control"
+              id="email"
+              name="username"
+              placeholder="Enter your Email"
+              aria-label="Input for your Email address"
+              required
+            />
+            <small></small>
+          </div>
+
+          <div class="input-box">
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              placeholder="Enter your Password"
+              aria-label="Input for your Password"
+              required
+            />
+            <small></small>
+          </div>
+
+          <div>
+            <input
+              type="checkbox"
+              class="show-password"
+              aria-label="Checkbox to show or hide your password"
+              onclick="myFunction()"
+            />
+            Show Password
+          </div>
+
+          <div class="input-box">
+            <button
+              type="submit"
+              class="btn"
+              id="loginButton"
+              aria-label="Button to log in to your account"
+            >
+              Login
+            </button>
+            <small></small>
+          </div>
+
+          <!-- Now we link to sections within this single page, instead of .html files -->
+          <div class="remember-forgot">
+            <p><a href="#" onclick="showSection('forgotPasswordSection')">Forgot Password?</a></p>
+          </div>
+
+          <div class="register-link">
+            <p>
+              Don't have an account?
+              <a href="#" onclick="showSection('registerStudentSection')"
+                >Register as student</a
+              >
+              <br />
+              <a href="#" onclick="showSection('registerInstructorSection')"
+                >Register as instructor</a
+              >
+            </p>
+          </div>
+
+          <!-- For testing: link to the dashboard directly -->
+          <div class="register-link">
+            <p>
+              <a href="#" onclick="showSection('instructorDashboardSection')"
+                >Skip to Dashboard</a
+              >
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- 2) FORGOT PASSWORD SECTION (from forgot_password.html) -->
+    <div id="forgotPasswordSection" class="spa-section">
+      <div class="form-container">
+        <form id="forgotPasswordForm" class="form">
+          <h1>Forgot Password</h1>
+          <div class="input-box">
+            <label for="forgotEmail" class="form-label">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              id="forgotEmail"
+              name="email"
+              placeholder="Enter your Email"
+              aria-label="Email address"
+              required
+            />
+            <small></small>
+          </div>
+
+          <div class="input-box">
+            <button
+              type="submit"
+              class="btn"
+              id="resetButton"
+              aria-label="Button to request a password reset email"
+            >
+              Reset Password
+            </button>
+            <small></small>
+          </div>
+
+          <div class="register-link">
+            <p>
+              <a href="#" onclick="showSection('loginSection')">Back to Login</a>
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- 3) REGISTER INSTRUCTOR SECTION (from register_instructor.html) -->
+    <div id="registerInstructorSection" class="spa-section">
+      <div class="form-container">
+        <form id="registrationFormInstructor">
+          <h1>Create Account For Instructor</h1>
+          <br />
+          <p class="required-fields">Fields marked with * are required</p>
+          <br />
+
+          <div class="input-box">
+            <label for="fname" class="form-label">First Name*</label>
+            <input
+              type="text"
+              class="form-control"
+              id="fname_instructor"
+              name="first name"
+              placeholder="Enter your First Name*"
+              aria-label="Input for your First Name"
+              required
+            />
+          </div>
+
+          <div class="input-box">
+            <label for="lname" class="form-label">Last Name*</label>
+            <input
+              type="text"
+              class="form-control"
+              id="lname_instructor"
+              name="last name"
+              placeholder="Enter your Last Name*"
+              aria-label="Input for your Last Name"
+              required
+            />
+          </div>
+
+          <div class="input-box">
+            <label for="email" class="form-label">Email*</label>
+            <input
+              type="text"
+              class="form-control"
+              id="email_instructor"
+              name="Email"
+              placeholder="Enter your Email*"
+              aria-label="Input for your Email address"
+              required
+            />
+          </div>
+
+          <div class="input-box">
+            <label for="password" class="form-label">Password*</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password_instructor"
+              placeholder="Enter your Password*"
+              required
+            />
+          </div>
+
+          <div class="input-box">
+            <label for="confirmPassword" class="form-label"
+              >Confirm Password*</label
+            >
+            <input
+              type="password"
+              class="form-control"
+              id="confirmPassword_instructor"
+              placeholder="Confirm Password*"
+              required
+            />
+            <span id="passwordError_instructor" class="error"></span>
+          </div>
+
+          <label>
+            <input
+              type="checkbox"
+              class="show-password"
+              aria-label="Checkbox to show or hide your password fields"
+              onclick="toggleInstructorPassword()"
+            />
+            Show Password
+          </label>
+          <br />
+
+          <button
+            type="button"
+            class="submit-btn"
+            aria-label="Button to create an instructor account"
+            id="submitBtnInstructor"
+            onclick="registerInstructor()"
+          >
+            Create
+          </button>
+          <div id="result_instructor"></div>
+
+          <div class="register-link">
+            <p>
+              Have an account?
+              <a href="#" onclick="showSection('loginSection')"
+                >Back to Login</a
+              >
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- 4) REGISTER STUDENT SECTION (from register_student.html) -->
+    <div id="registerStudentSection" class="spa-section">
+      <div class="form-container">
+        <form id="registrationFormStudent">
+          <h1>Create Account For Student</h1>
+          <br />
+          <p class="required-fields">Fields marked with * are required</p>
+          <br />
+
+          <div class="input-box">
+            <label for="fname" class="form-label">First Name*</label>
+            <input
+              type="text"
+              class="form-control"
+              id="fname_student"
+              placeholder="Enter your First Name*"
+              required
+            />
+          </div>
+
+          <div class="input-box">
+            <label for="lname" class="form-label">Last Name*</label>
+            <input
+              type="text"
+              class="form-control"
+              id="lname_student"
+              placeholder="Enter your Last Name*"
+              required
+            />
+          </div>
+
+          <div class="input-box">
+            <label for="contactdetails" class="form-label">Contact Details</label>
+            <input
+              type="text"
+              class="form-control"
+              id="phonenumber_student"
+              placeholder="Enter your Phone Number"
+            />
+            <input
+              type="text"
+              class="form-control"
+              id="discord_student"
+              placeholder="Enter your Discord"
+            />
+            <input
+              type="text"
+              class="form-control"
+              id="teams_student"
+              placeholder="Enter your Teams"
+            />
+          </div>
+
+          <div class="input-box">
+            <label for="email" class="form-label">Email*</label>
+            <input
+              type="text"
+              class="form-control"
+              id="email_student"
+              placeholder="Enter your Email*"
+              required
+            />
+          </div>
+
+          <div class="input-box">
+            <label for="password" class="form-label">Password*</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password_student"
+              placeholder="Enter your Password*"
+              required
+            />
+          </div>
+
+          <div class="input-box">
+            <label for="confirmPassword" class="form-label"
+              >Confirm Password*</label
+            >
+            <input
+              type="password"
+              class="form-control"
+              id="confirmPassword_student"
+              placeholder="Confirm Password*"
+              required
+            />
+            <span id="passwordError_student" class="error"></span>
+          </div>
+
+          <label>
+            <input
+              type="checkbox"
+              class="show-password"
+              aria-label="Checkbox to show or hide your password fields"
+              onclick="toggleStudentPassword()"
+            />
+            Show Password
+          </label>
+          <br />
+
+          <button
+            type="button"
+            class="submit-btn"
+            aria-label="Button to create a student account"
+            id="submitBtnStudent"
+            onclick="registerStudent()"
+          >
+            Create
+          </button>
+          <div id="result_student"></div>
+
+          <div class="register-link">
+            <p>
+              Have an account?
+              <a href="#" onclick="showSection('loginSection')"
+                >Back to Login</a
+              >
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- 5) INSTRUCTOR DASHBOARD (from inst_dashboard.html, SB Admin layout) -->
+    <div id="instructorDashboardSection" class="sb-nav-fixed spa-section">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="#">Start Bootstrap</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <div class="input-group">
+                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                </div>
+            </form>
+            <!-- Navbar-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" href="#">Activity Log</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="#" onclick="showSection('loginSection'); return false;">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Core</div>
+                            <a class="nav-link" href="#">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Dashboard
+                            </a>
+                            <div class="sb-sidenav-menu-heading">Interface</div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Courses
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="#">Create Course</a>
+                                    <a class="nav-link" href="#">Manage Course</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                Evaluations
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                        Create Evaluations
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="#">Multi Choice</a>
+                                            <a class="nav-link" href="#">Short Answer</a>
+                                            <a class="nav-link" href="#">Likert Scale</a>
+                                        </nav>
+                                    </div>
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                                        View Evaluations
+                                    </a>
+                                </nav>
+                            </div>
+                            <div class="sb-sidenav-menu-heading">Addons</div>
+                            <a class="nav-link" href="#">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                Charts
+                            </a>
+                            <a class="nav-link" href="#">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Tables
+                            </a>
+                        </div>
+                    </div>
+                    <div class="sb-sidenav-footer">
+                        <div class="small">Logged in as:</div>
+                        Instructor Name
+                    </div>
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Dashboard</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>
+                        <div class="row">
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-primary text-white mb-4">
+                                    <div class="card-body">Primary Card</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-warning text-white mb-4">
+                                    <div class="card-body">Warning Card</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-success text-white mb-4">
+                                    <div class="card-body">Success Card</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-danger text-white mb-4">
+                                    <div class="card-body">Danger Card</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-area me-1"></i>
+                                        Area Chart Example
+                                    </div>
+                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-bar me-1"></i>
+                                        Bar Chart Example
+                                    </div>
+                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                DataTable Example
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesSimple" class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Position</th>
+                                            <th>Office</th>
+                                            <th>Age</th>
+                                            <th>Start date</th>
+                                            <th>Salary</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Tiger Nixon</td>
+                                            <td>System Architect</td>
+                                            <td>Edinburgh</td>
+                                            <td>61</td>
+                                            <td>2011/04/25</td>
+                                            <td>$320,800</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Garrett Winters</td>
+                                            <td>Accountant</td>
+                                            <td>Tokyo</td>
+                                            <td>63</td>
+                                            <td>2011/07/25</td>
+                                            <td>$170,750</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ashton Cox</td>
+                                            <td>Junior Technical Author</td>
+                                            <td>San Francisco</td>
+                                            <td>66</td>
+                                            <td>2009/01/12</td>
+                                            <td>$86,000</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Your Website 2025</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6) REGISTERED USERS SECTION -->
+    <div id="registeredUsersSection" class="spa-section">
+      <div class="container-fluid px-4">
+        <h1 class="mt-4">Registered Users</h1>
+        <table id="registeredUsersTable" class="table table-striped">
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Rows will be dynamically added here -->
+          </tbody>
+        </table>
+        <div class="register-link">
+          <p><a href="#" onclick="showSection('loginSection')">Back to Login</a></p>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+    <!-- Your existing JS files: login.js, register.js, etc. -->
+    <script src="js/login.js"></script>
+    <script src="js/register.js"></script>
+    <script src="js/data.js"></script>
+
+    <script>
+      // Hide all sections, show the requested one
+      function showSection(sectionId) {
+        const sections = [
+          'loginSection',
+          'forgotPasswordSection',
+          'registerInstructorSection',
+          'registerStudentSection',
+          'instructorDashboardSection',
+          'registeredUsersSection'
+        ];
+        sections.forEach((id) => {
+          document.getElementById(id).style.display = 'none';
+        });
+        document.getElementById(sectionId).style.display = 'block';
+
+        // If we are going from login to dashboard, you might want to remove
+        // or add classes from <body> to fix styling conflicts
+        const appBody = document.getElementById('appBody');
+        if (sectionId === 'instructorDashboardSection') {
+          // remove the login-page class if you want
+          appBody.classList.remove('login-page');
+        } else {
+          // for login or register pages, maybe you want that background
+          appBody.classList.add('login-page');
+        }
+      }
+
+      // Simple toggles for password visibility
+      function myFunction() {
+        const pwd = document.getElementById('password');
+        pwd.type = pwd.type === 'password' ? 'text' : 'password';
+      }
+
+      function toggleInstructorPassword() {
+        const pwd = document.getElementById('password_instructor');
+        const cpwd = document.getElementById('confirmPassword_instructor');
+        pwd.type = (pwd.type === 'password') ? 'text' : 'password';
+        cpwd.type = (cpwd.type === 'password') ? 'text' : 'password';
+      }
+
+      function toggleStudentPassword() {
+        const pwd = document.getElementById('password_student');
+        const cpwd = document.getElementById('confirmPassword_student');
+        pwd.type = (pwd.type === 'password') ? 'text' : 'password';
+        cpwd.type = (cpwd.type === 'password') ? 'text' : 'password';
+      }
+
+      // Optional: load the loginSection by default
+      window.onload = function() {
+        showSection('loginSection');
+      };
+
+      const tableBody = document.querySelector('#registeredUsersTable tbody');
+
+      registrations.forEach((user) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${user.firstName}</td>
+          <td>${user.lastName}</td>
+          <td>${user.email}</td>
+          <td>${user.role}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    </script>
+  </body>
+</html>
+``` 
