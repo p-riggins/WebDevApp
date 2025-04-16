@@ -126,14 +126,14 @@ body {
 
 /* Button styling */
 .btn {
-  width: 100%;
-  height: 45px;
-  background: #fff;
+  /* width: 100%; */
+  height: auto;
+  /* background: #fff; */
   border: none;
   border-radius: 40px;
   cursor: pointer;
-  font-size: 16px;
-  color: #333;
+  font-size: 20px;
+  color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 10px;
 }
@@ -196,14 +196,14 @@ body {
 /* SB Admin specific CSS - Override for dashboard */
 #instructorDashboardSection {
   height: 100%;
-  width: 100%;
+  /* width: 100%; */
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   overflow: auto;
-  background-color: #f8f9fa;
+  /* background-color: #f8f9fa; */
   color: #212529;
   display: block; /* Override body display flex */
 }
@@ -222,23 +222,8 @@ body:has(#instructorDashboardSection:not([style*="display: none"])) {
   z-index: 1039;
 }
 
-.sb-nav-fixed #layoutSidenav #layoutSidenav_nav {
-  width: 225px;
-  height: 100vh;
-  z-index: 1038;
-}
-
-.sb-nav-fixed #layoutSidenav #layoutSidenav_nav .sb-sidenav {
-  padding-top: 56px;
-}
-
 .sb-nav-fixed #layoutSidenav #layoutSidenav_nav .sb-sidenav .sb-sidenav-menu {
   overflow-y: auto;
-}
-
-.sb-nav-fixed #layoutSidenav #layoutSidenav_content {
-  padding-left: 225px;
-  top: 56px;
 }
 
 #layoutSidenav {
@@ -504,9 +489,9 @@ body:has(#instructorDashboardSection:not([style*="display: none"])) {
   margin-right: 0 !important;
 }
 
-.ms-auto {
+/* .ms-auto {
   margin-left: auto !important;
-}
+} */
 
 .px-4 {
   padding-right: 1.5rem !important;
