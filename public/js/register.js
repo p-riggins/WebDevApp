@@ -1,144 +1,205 @@
-// Validate the registration form on input
-document.getElementById('registrationForm').addEventListener('input', function () {
-    validateForm();
-});
+// register.js - Form validation for registration page
 
-function validateForm() {
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
-    const submitBtn = document.getElementById('submitBtn');
-    const errorElement = document.getElementById('passwordError');
+// Global variables to track form elements
+let registrationForm, regEmailInput, regPasswordInput, regConfirmPasswordInput;
+let roleSelect, registerButton, passwordErrorSpan;
 
-    let isValid = true;
-
-    // Ensure all required fields (email, password, confirmPassword) are filled
-    if (!email || !password || !confirmPassword) {
-        isValid = false;
-    }
-
-    // Check if passwords match
-    if (password !== confirmPassword) {
-        errorElement.textContent = 'Passwords do not match';
-        errorElement.classList.remove('success');
-        errorElement.classList.add('error');
-        isValid = false;
-    } else {
-        errorElement.textContent = 'Passwords match';
-        errorElement.classList.remove('error');
-        errorElement.classList.add('success');
-    }
-
-    if (isValid) {
-        submitBtn.classList.add('enabled');
-        submitBtn.disabled = false;
-    } else {
-        submitBtn.classList.remove('enabled');
-        submitBtn.disabled = true;
-    }
+/**
+ * Main initialization function
+ */
+function initializeRegistrationForm() {
+  // Get form elements
+  registrationForm = document.getElementById('registrationForm');
+  regEmailInput = document.getElementById('regEmail');
+  regPasswordInput = document.getElementById('regPassword');
+  regConfirmPasswordInput = document.getElementById('regConfirmPassword');
+  roleSelect = document.getElementById('roleSelect');
+  registerButton = document.getElementById('registerButton');
+  passwordErrorSpan = document.getElementById('passwordError');
+  
+  // Exit if form elements aren't found
+  if (!registrationForm || !regEmailInput || !regPasswordInput || !regConfirmPasswordInput) {
+    console.error('Registration form elements not found');
+    return;
+  }
+  
+  // Initially disable the register button
+  if (registerButton) {
+    registerButton.classList.remove('enabled');
+    registerButton.disabled = true;
+  }
+  
+  // Set up form validation
+  setupRegistrationValidation();
 }
 
-// Simulate registration on submit button click
-document.getElementById('submitBtn').addEventListener('click', function(e) {
+/**
+ * Sets up validation for the registration form
+ */
+function setupRegistrationValidation() {
+  // Validate on input
+  registrationForm.addEventListener('input', validateRegistrationForm);
+  
+  // Handle form submission
+  registerButton.addEventListener('click', function(e) {
     e.preventDefault();
-    // Run validation one more time
-    validateForm();
-    const submitBtn = document.getElementById('submitBtn');
-    if (!submitBtn.disabled) {
-         alert("Registration successful!");
-         // Optionally, clear the form or redirect the user.
-    } else {
-         alert("Please fix the errors in the form.");
-    }
-});
-
-function myFunction() {
-    var passwordField = document.getElementById("password");
-    var confirmPasswordField = document.getElementById("confirmPassword");
-
-    // Toggle visibility for password field
-    if (passwordField.type === "password") {
-        passwordField.type = "text";
-    } else {
-        passwordField.type = "password";
-    }
     
-    // Toggle visibility for confirm password field
-    if (confirmPasswordField.type === "password") {
-        confirmPasswordField.type = "text";
+    if (validateRegistrationForm()) {
+      // Get form values
+      const email = regEmailInput.value;
+      const password = regPasswordInput.value;
+      const role = roleSelect ? roleSelect.options[roleSelect.selectedIndex].text : 'Student';
+      
+      // Store user data
+      const userData = {
+        email: email,
+        role: role,
+        password: password // In a real app, you'd hash this before sending it
+      };
+      
+      // In a real app, you would send this to your backend
+      console.log('Registration data:', userData);
+      
+      // Store in registeredUsers array if available
+      if (typeof window.registeredUsers === 'undefined') {
+        window.registeredUsers = [];
+      }
+      window.registeredUsers.push(userData);
+      
+      // Show success message
+      showAlert('Registration successful!', 'success');
+      
+      // Redirect to login
+      setTimeout(() => {
+        showSection('loginSection');
+      }, 1500);
     } else {
-        confirmPasswordField.type = "password";
+      showAlert('Please fix the errors in the form', 'warning');
     }
-}
-
-// Global array to store registered users
-const registeredUsers = [];
-
-// Function to handle instructor registration
-function registerInstructor() {
-  console.log('Instructor registration triggered');
-  const firstName = document.getElementById('fname_instructor').value;
-  const lastName = document.getElementById('lname_instructor').value;
-  const email = document.getElementById('email_instructor').value;
-
-  if (firstName && lastName && email) {
-    registeredUsers.push({
-      firstName,
-      lastName,
-      email,
-      role: 'Instructor',
-    });
-
-    console.log('Instructor registered:', { firstName, lastName, email });
-    alert('Instructor registered successfully!');
-    showSection('registeredUsersSection');
-    populateRegisteredUsersTable();
-  } else {
-    alert('Please fill out all required fields.');
-  }
-}
-
-// Function to handle student registration
-function registerStudent() {
-  console.log('Student registration triggered');
-  const firstName = document.getElementById('fname_student').value;
-  const lastName = document.getElementById('lname_student').value;
-  const email = document.getElementById('email_student').value;
-
-  if (firstName && lastName && email) {
-    registeredUsers.push({
-      firstName,
-      lastName,
-      email,
-      role: 'Student',
-    });
-
-    console.log('Student registered:', { firstName, lastName, email });
-    alert('Student registered successfully!');
-    showSection('registeredUsersSection');
-    populateRegisteredUsersTable();
-  } else {
-    alert('Please fill out all required fields.');
-  }
-}
-
-// Function to populate the registered users table
-function populateRegisteredUsersTable() {
-  const tableBody = document.querySelector('#registeredUsersTable tbody');
-  tableBody.innerHTML = ''; // Clear existing rows
-
-  registeredUsers.forEach((user) => {
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td>${user.firstName}</td>
-      <td>${user.lastName}</td>
-      <td>${user.email}</td>
-      <td>${user.role}</td>
-    `;
-    tableBody.appendChild(row);
   });
 }
 
-// Ensure event listeners are properly attached
-document.getElementById('submitBtnInstructor').addEventListener('click', registerInstructor);
-document.getElementById('submitBtnStudent').addEventListener('click', registerStudent);
+/**
+ * Validates the registration form
+ * @returns {boolean} True if valid, false otherwise
+ */
+function validateRegistrationForm() {
+  let isValid = true;
+  
+  // Validate email
+  if (!regEmailInput.value.trim()) {
+    showInputError(regEmailInput, 'Email is required');
+    isValid = false;
+  } else if (!isValidEmail(regEmailInput.value)) {
+    showInputError(regEmailInput, 'Please enter a valid email address');
+    isValid = false;
+  } else {
+    clearInputError(regEmailInput);
+  }
+  
+  // Validate password
+  if (!regPasswordInput.value.trim()) {
+    showInputError(regPasswordInput, 'Password is required');
+    isValid = false;
+  } else if (regPasswordInput.value.length < 6) {
+    showInputError(regPasswordInput, 'Password must be at least 6 characters');
+    isValid = false;
+  } else {
+    clearInputError(regPasswordInput);
+  }
+  
+  // Validate password confirmation
+  if (!regConfirmPasswordInput.value.trim()) {
+    showInputError(regConfirmPasswordInput, 'Please confirm your password');
+    isValid = false;
+  } else if (regConfirmPasswordInput.value !== regPasswordInput.value) {
+    showInputError(regConfirmPasswordInput, 'Passwords do not match');
+    // Update the password error span
+    if (passwordErrorSpan) {
+      passwordErrorSpan.textContent = 'Passwords do not match';
+      passwordErrorSpan.className = 'error';
+    }
+    isValid = false;
+  } else {
+    clearInputError(regConfirmPasswordInput);
+    // Update the password error span
+    if (passwordErrorSpan) {
+      passwordErrorSpan.textContent = 'Passwords match';
+      passwordErrorSpan.className = 'success';
+    }
+  }
+  
+  // Validate role selection
+  if (roleSelect && roleSelect.selectedIndex <= 0) {
+    isValid = false;
+  }
+  
+  // Enable or disable register button
+  if (isValid && registerButton) {
+    registerButton.classList.add('enabled');
+    registerButton.disabled = false;
+  } else if (registerButton) {
+    registerButton.classList.remove('enabled');
+    registerButton.disabled = true;
+  }
+  
+  return isValid;
+}
+
+/**
+ * Shows error message for input field
+ * @param {HTMLElement} input - Input element
+ * @param {string} message - Error message
+ */
+function showInputError(input, message) {
+  if (!input) return;
+  
+  const inputBox = input.parentElement;
+  inputBox.classList.remove('success');
+  inputBox.classList.add('error');
+  
+  const errorElement = inputBox.querySelector('small');
+  if (errorElement) {
+    errorElement.textContent = message;
+  }
+}
+
+/**
+ * Clears error message for input field
+ * @param {HTMLElement} input - Input element
+ */
+function clearInputError(input) {
+  if (!input) return;
+  
+  const inputBox = input.parentElement;
+  inputBox.classList.remove('error');
+  inputBox.classList.add('success');
+  
+  const errorElement = inputBox.querySelector('small');
+  if (errorElement) {
+    errorElement.textContent = '';
+  }
+}
+
+/**
+ * Toggle password visibility for registration form
+ */
+function toggleRegisterPasswordVisibility() {
+  const passwordField = document.getElementById('regPassword');
+  const confirmPasswordField = document.getElementById('regConfirmPassword');
+  
+  if (passwordField) {
+    passwordField.type = passwordField.type === 'password' ? 'text' : 'password';
+  }
+  
+  if (confirmPasswordField) {
+    confirmPasswordField.type = confirmPasswordField.type === 'password' ? 'text' : 'password';
+  }
+}
+
+// Initialize registration form when DOM is loaded
+document.addEventListener('DOMContentLoaded', initializeRegistrationForm);
+
+// Export functions to global scope
+window.toggleRegisterPasswordVisibility = toggleRegisterPasswordVisibility;
+window.toggleStudentPassword = toggleRegisterPasswordVisibility; // Legacy compatibility

@@ -1,0 +1,22 @@
+{
+  "name": "webdevapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "sesrver.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/p-riggins/WebDevApp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/p-riggins/WebDevApp/issues"
+  },
+  "homepage": "https://github.com/p-riggins/WebDevApp#readme",
+  "dependencies": {
+    "validator": "^13.15.0"
+  }
+}
