@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login form</title>
+    <link rel="stylesheet" href="../assets/css/style.css">   
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+</head>
+
+<body class="login-page">
+    <div class="form-container">
+        <form id="signup" class="form">
+            <h1>Login</h1>
+            <div class="input-box">
+                <label for="username" class="form-label">Email</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Enter your Email" aria-label="Input for your Email address" required>
+                <small></small>
+                <!-- <i class='bx bxs-user'></i> -->
+            </div>
+
+            <div class="input-box">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter your Password" aria-label="Input for your Password" required>
+                <small></small>
+                <!-- <i class='bx bxs-lock-alt'></i> -->
+            </div>
+
+            <div>
+                <input type="checkbox" class="show-password" aria-label="Checkbox to show or hide your password" onclick="myFunction()">Show Password
+            </div>
+
+            <div class="input-box">
+                <button type="submit" class="btn" id="loginButton" aria-label="Button to log in to your account">Login</button>
+                <small></small>
+            </div>
+
+            <div class="register-link">
+                <p><a href="inst_dashboard.html">Skip to Dashboard</a></p>
+            </div>
+
+            <div class="remember-forgot">
+                <p><a href="forgot_password.html">Forgot Password?</a></p>
+            </div>
+
+            <div class="register-link">
+                <p>Don't have an account? <a href="register_student.html">Register as student</a><br><a href="register_instructor.html">Register as instructor</a></p>
+            </div>
+
+
+
+
+        </form>
+    </div>
+    <script src="/js/login.js"></script>
+</body>
+
+</html>
+
+

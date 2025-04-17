@@ -144,51 +144,6 @@ body {
   color: #fff;
 }
 
-/* Dashboard top‑bar search sizing */
-#navsearch {
-  height: 38px;           /* fixes search bar height issue */
-  padding: 0.25rem 0.75rem; /* keep text vertically centred */
-}
-#btnNavbarSearch {
-  padding: 0.25rem 0.75rem; /* make sure the icon stays centred */
-}
-
-/******************************************************
-  CUSTOM OVERRIDE – Force all top‑bar items to 40 px
-******************************************************/
-.sb-topnav {                       /* the bar itself  */
-  height: 40px;                    /* new total height */
-  padding-top: 0;                  /* remove default 0.5 rem */
-  padding-bottom: 0;
-}
-
-/* every child we care about: brand link, hamburger button,
-   search <form>, and the UL that holds the dropdown            */
-.sb-topnav .navbar-brand,
-#sidebarToggle,
-.sb-topnav form,
-.sb-topnav .navbar-nav {
-  height: 40px;                    /* match bar height */
-  display: flex;                   /* centre their own content */
-  align-items: center;
-  margin: 0;                       /* kill Bootstrap’s my‑2 etc. */
-  padding: 0;                      /* kill vertical padding     */
-}
-
-/* make the dropdown toggle link itself obey the 40 px box */
-.sb-topnav .navbar-nav .nav-link,
-.sb-topnav .navbar-nav .dropdown-toggle {
-  line-height: 40px;               /* keep icon/text centred */
-  padding-top: 0;
-  padding-bottom: 0;
-}
-/* Space between brand text and hamburger icon */
-#sidebarToggle {
-  margin-left: 1rem;
-}
-
-/*CHAT GPT USED FOR DEBUGGING AND DESIGN ISSUES*/
-
 /* Remember me and forgot password links */
 .remember-forgot {
   display: flex;
@@ -773,4 +728,3 @@ span.success {
     background-attachment: scroll; /* Better performance on mobile */
   }
 }
-
