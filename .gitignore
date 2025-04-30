@@ -4,4 +4,6 @@
 .env
 /.env.local
 /package-lock.json
+.idea
+/.vscode
 *.zip
