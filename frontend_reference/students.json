@@ -1,0 +1,66 @@
+[
+    {
+        "strStudentID": 1,
+        "strStudentName": "Reed Richards",
+        "strStudentEmail": "mrfantastic@gmail.com",
+        "strStudentDiscord": "ReedRichards#1234",
+        "strStudentTeamsEmail": "mrfantastic@tntech.edu",
+        "strStudentPhone": "123-456-7890"
+    },
+    {
+        "strStudentID": 2,
+        "strStudentName": "Sue Storm",
+        "strStudentEmail": "invisiblewoman@gmail.com",
+        "strStudentDiscord": "SueStorm#5678",
+        "strStudentTeamsEmail": "invisiblewoman@tntech.edu",
+        "strStudentPhone": "098-765-4321"
+    },
+    {
+        "strStudentID": 3,
+        "strStudentName": "Johnny Storm",
+        "strStudentEmail": "humantorch@gmail.com",
+        "strStudentDiscord": "JohnnyStorm#2468",
+        "strStudentTeamsEmail": "humantorch@tntech.edu",
+        "strStudentPhone": "135-791-3579"
+    },
+    {
+        "strStudentID": 4,
+        "strStudentName": "Ben Grimm",
+        "strStudentEmail": "thething@gmail.com",
+        "strStudentDiscord": "BenGrimm#1357",
+        "strStudentTeamsEmail": "thething@tntech.edu",
+        "strStudentPhone": "246-802-4680"
+    },
+    {
+        "strStudentID": 5,
+        "strStudentName": "Victor Von Doom",
+        "strStudentEmail": "drdoom@gmail.com",
+        "strStudentDiscord": "VictorVonDoom#8642",
+        "strStudentTeamsEmail": "drdoom@tntech.edu",
+        "strStudentPhone": "086-420-8642"
+    },
+    {
+        "strStudentID": 6,
+        "strStudentName": "Silver Surfer",
+        "strStudentEmail": "silversurfer@gmail.com",
+        "strStudentDiscord": "SilverSurfer#8642",
+        "strStudentTeamsEmail": "silversurfer@tntech.edu",
+        "strStudentPhone": "186-420-8642"
+    },
+    {
+        "strStudentID": 7,
+        "strStudentName": "Nancy Anne Cianci",
+        "strStudentEmail": "nancyancyancy@gmail.com",
+        "strStudentDiscord": "NancyAnneCianci#8642",
+        "strStudentTeamsEmail": "nancyannecianci@tntech.edu",
+        "strStudentPhone": "286-420-8642"
+    },
+    {
+        "strStudentID": 8,
+        "strStudentName": "Stephen Strange",
+        "strStudentEmail": "drstrange@gmail.com",
+        "strStudentDiscord": "DrStrange#8642",
+        "strStudentTeamsEmail": "stephenstrange@tntech.edu",
+        "strStudentPhone": "386-420-8642"
+    }
+]

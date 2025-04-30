@@ -1,0 +1,68 @@
+[
+    {
+        "strCourseID": 1,
+        "strCourseName": "CSC 1300",
+        "strCourseSection": "001",
+        "students": [],
+        "groups": [
+            {
+                "strGroupID": 1,
+                "strGroupName": "Group 1",
+                "members": []
+            },
+            {
+                "strGroupID": 2,
+                "strGroupName": "Group 2",
+                "members": []
+            },
+            {
+                "strGroupID": 3,
+                "strGroupName": "Group 3",
+                "members": []
+            },
+            {
+                "strGroupID": 4,
+                "strGroupName": "Group 4",
+                "members": []
+            },
+            {
+                "strGroupID": 5,
+                "strGroupName": "Group 5",
+                "members": []
+            }
+        ]
+    },
+    {
+        "strCourseID": 2,
+        "strCourseName": "CSC 3100",
+        "strCourseSection": "001",
+        "students": [],
+        "groups": [
+            {
+                "strGroupID": 1,
+                "strGroupName": "Group 1",
+                "members": []
+            },
+            {
+                "strGroupID": 2,
+                "strGroupName": "Group 2",
+                "members": []
+            },
+            {
+                "strGroupID": 3,
+                "strGroupName": "Group 3",
+                "members": []
+            },
+            {
+                "strGroupID": 4,
+                "strGroupName": "Group 4",
+                "members": []
+            },
+            {
+                "strGroupID": 5,
+                "strGroupName": "Group 5",
+                "members": []
+            }
+        ]
+}
+]

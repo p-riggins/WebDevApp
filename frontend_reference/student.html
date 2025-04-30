@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Interface</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/pulse/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://formbuilder.online/assets/css/form-builder.min.css">
+    <style>
+        .btn-custom {
+            background-color: white;
+            color: black;  
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .btn-custom:hover {
+            background-color: purple; 
+            color: white; 
+        }
+        .table-hover tbody tr:hover {
+            background-color: purple; 
+            color: white; 
+        }
+        .card {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand font-weight-bold" href="#">Student Interface</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="showReviewsButton">Pending Reviews</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="showReportsButton">Reports</a>
+                </li>
+            </ul>
+            <button class="btn btn-danger" id="logoutButton" aria-label="Logout">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container d-flex flex-column justify-content-center align-items-center min-vh-100">
+        <div class="row w-100">
+            <div class="col-md-6 mb-4" role="region" aria-labelledby="reviewsHeading">
+                <div class="card h-100" id="reviewsCard">
+                    <div class="card-body">
+                        <h2 id="reviewsHeading" role="heading" aria-level="2">Complete Pending Reviews</h2>
+                        <button class="btn btn-danger" id="closeReviewsButton" style="display: none;">Close Reviews</button>
+                        <div id="pendingReviews" class="table-container" aria-live="polite" style="display: none;"></div>
+                        <div id="reviewForm" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4" role="region" aria-labelledby="reportsHeading">
+                <div class="card h-100" id="reportsCard">
+                    <div class="card-body">
+                        <h2 id="reportsHeading" role="heading" aria-level="2">Reports</h2>
+                        <button class="btn btn-danger" id="closeReportsButton" style="display: none;">Close Reports</button>
+                        <div id="reports" aria-live="polite" style="display: none;"></div>
+                        <div id="reportForm" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://formbuilder.online/assets/js/form-builder.min.js"></script>
+    <script src="https://formbuilder.online/assets/js/form-render.min.js"></script>
+    <script>
+        const pendingReviews = [
+            { id: 1, title: "Review for Project A", publicFeedback: "Great work!", score: 85 },
+            { id: 2, title: "Review for Project B", publicFeedback: "Needs improvement.", score: 60 },
+            { id: 3, title: "Review for Project C", publicFeedback: "Excellent presentation!", score: 90 },
+            { id: 4, title: "Review for Project D", publicFeedback: "Well done, but could use more detail.", score: 75 }
+        ];
+
+        document.getElementById('reviewsCard').addEventListener('click', (event) => {
+            if (event.target.tagName !== 'BUTTON') {
+                displayPendingReviews();
+            }
+        });
+        document.getElementById('reportsCard').addEventListener('click', (event) => {
+            if (event.target.tagName !== 'BUTTON') {
+                displayReports();
+            }
+        });
+
+        function displayPendingReviews() {
+            const reviewsContainer = document.getElementById('pendingReviews');
+            reviewsContainer.innerHTML = '';
+
+            const table = document.createElement('table');
+            table.classList.add('table', 'table-bordered', 'table-hover');
+            const headerRow = document.createElement('tr');
+            const headerCell = document.createElement('th');
+            headerCell.textContent = 'Pending Reviews';
+            headerRow.appendChild(headerCell);
+            table.appendChild(headerRow);
+
+            pendingReviews.forEach(review => {
+                const row = document.createElement('tr');
+                const cell = document.createElement('td');
+                cell.textContent = review.title;
+                row.appendChild(cell);
+                const buttonCell = document.createElement('td');
+                const viewButton = document.createElement('button');
+                viewButton.classList.add('btn', 'btn-custom');
+                viewButton.textContent = 'View';
+                viewButton.onclick = (event) => {
+                    event.stopPropagation();
+                    selectReview(review);
+                };
+                buttonCell.appendChild(viewButton);
+                row.appendChild(buttonCell);
+
+                row.onclick = (event) => {
+                    if (event.target.tagName !== 'BUTTON') {
+                        selectReview(review);
+                    }
+                };
+
+                table.appendChild(row);
+            });
+
+            reviewsContainer.appendChild(table);
+            reviewsContainer.style.display = 'block';
+            document.getElementById('closeReviewsButton').style.display = 'inline-block';
+        }
+
+        function selectReview(review) {
+            const reviewForm = document.getElementById('reviewForm');
+            reviewForm.innerHTML = '';
+
+            const formData = [
+                {
+                    "label": "Review Title",
+                    "name": "reviewTitle",
+                    "type": "text",
+                    "required": true,
+                    "value": review.title,
+                    "placeholder": "Review Title",
+                    "disabled": true 
+                },
+                {
+                    "label": "Review Score",
+                    "name": "reviewScore",
+                    "type": "number",
+                    "required": true,
+                    "placeholder": "Review Score (1-100)",
+                    "min": 1,
+                    "max": 100
+                },
+                {
+                    "label": "Public Feedback",
+                    "name": "publicFeedback",
+                    "type": "textarea",
+                    "required": true,
+                    "placeholder": "Public Feedback"
+                },
+                {
+                    "label": "Private Feedback",
+                    "name": "privateFeedback",
+                    "type": "textarea",
+                    "placeholder": "Private Feedback"
+                }
+            ];
+
+            // Create form elements dynamically
+            formData.forEach(field => {
+                const formGroup = document.createElement('div');
+                formGroup.classList.add('form-group');
+
+                const label = document.createElement('label');
+                label.textContent = field.label;
+                formGroup.appendChild(label);
+
+                const input = document.createElement(field.type === 'textarea' ? 'textarea' : 'input');
+                input.name = field.name;
+                input.type = field.type;
+                input.classList.add('form-control');
+                input.placeholder = field.placeholder;
+                input.required = field.required;
+                if (field.value) input.value = field.value;
+                if (field.disabled) input.disabled = true;
+                if (field.min) input.min = field.min;
+                if (field.max) input.max = field.max;
+
+                formGroup.appendChild(input);
+                reviewForm.appendChild(formGroup);
+            });
+
+            const submitButton = document.createElement('button');
+            submitButton.classList.add('btn', 'btn-primary');
+            submitButton.textContent = 'Submit Review';
+            submitButton.onclick = (event) => {
+                event.preventDefault();
+                const newReview = {
+                    id: pendingReviews.length + 1, 
+                    title: review.title, 
+                    score: parseInt(reviewForm.querySelector('input[name="reviewScore"]').value),
+                    publicFeedback: reviewForm.querySelector('textarea[name="publicFeedback"]').value,
+                    privateFeedback: reviewForm.querySelector('textarea[name="privateFeedback"]').value
+                };
+                pendingReviews.push(newReview);
+
+                Swal.fire('Success!', 'New review added successfully.', 'success');
+                reviewForm.style.display = 'none';
+                displayReports();
+            };
+            reviewForm.appendChild(submitButton);
+
+            reviewForm.style.display = 'block';
+        }
+
+        function displayReports() {
+            const reportsContainer = document.getElementById('reports');
+            reportsContainer.innerHTML = '';
+            const groupedReviews = {};
+            pendingReviews.forEach(review => {
+                if (!groupedReviews[review.title]) {
+                    groupedReviews[review.title] = { totalScore: 0, count: 0, feedbacks: [] };
+                }
+                groupedReviews[review.title].totalScore += review.score;
+                groupedReviews[review.title].count += 1;
+                groupedReviews[review.title].feedbacks.push({ publicFeedback: review.publicFeedback, score: review.score });
+            });
+
+            for (const title in groupedReviews) {
+                const averageScore = groupedReviews[title].totalScore / groupedReviews[title].count;
+                const reportButton = document.createElement('button');
+                reportButton.classList.add('btn', 'btn-custom', 'mb-2');
+                reportButton.textContent = `${title}: Average Score: ${averageScore.toFixed(2)}`;
+                reportButton.onclick = () => showFeedback(groupedReviews[title].feedbacks);
+                reportsContainer.appendChild(reportButton);
+            }
+
+            reportsContainer.style.display = 'block';
+            document.getElementById('closeReportsButton').style.display = 'inline-block';
+        }
+
+        function showFeedback(feedbacks) {
+            const feedbackList = feedbacks.map(f => `<div><strong>Score:</strong> ${f.score}, <strong>Feedback:</strong> ${f.publicFeedback}</div>`).join('');
+            Swal.fire({
+                title: 'Feedback Details',
+                html: feedbackList,
+                confirmButtonText: 'Close'
+            });
+        }
+
+        document.getElementById('closeReviewsButton').addEventListener('click', (event) => {
+            event.stopPropagation();
+            document.getElementById('pendingReviews').style.display = 'none'; 
+            document.getElementById('closeReviewsButton').style.display = 'none'; 
+            document.getElementById('reviewForm').style.display = 'none';
+        });
+
+        document.getElementById('closeReportsButton').addEventListener('click', (event) => {
+            event.stopPropagation();
+            document.getElementById('reports').style.display = 'none'; 
+            document.getElementById('closeReportsButton').style.display = 'none'; 
+            document.getElementById('reportForm').style.display = 'none';
+        });
+
+        document.getElementById('logoutButton').addEventListener('click', () => {
+            Swal.fire({
+                title: 'Logout',
+                text: "Are you sure you want to logout?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, logout',
+                cancelButtonText: 'No, stay'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'index.html';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
