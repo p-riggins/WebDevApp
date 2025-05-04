@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const sqlite3 = require('sqlite3').verbose();
-
+const path = require('path');
 const dbSource = 'webdev.db';
 const HTTP_PORT = 8000;
 const db = new sqlite3.Database(dbSource);
@@ -9,8 +9,12 @@ const db = new sqlite3.Database(dbSource);
 var app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
-
+// default endpoint
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public','html', 'index.html'));
+});
 // users enpoints
 // This endpoint is used to retrieve all users from the database
 app.get('/users', (req, res) => {
