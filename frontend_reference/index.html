@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Evaluation System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/pulse/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <!----- Instructor Navigation Bar ----->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="display: none;" id="instructorNavbar">
+        <a class="navbar-brand font-weight-bold" href="#">Instructor Interface</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a id="btnNavCourses" class="nav-link" href="#">Courses<span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item dropdown">
+                <a id="btnNavSurveys" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">Surveys</a>
+                <ul class="dropdown-menu" aria-labelledby="btnNavSurveys">
+                    <li><a id="btnViewSurveys" class="dropdown-item" href="#">View Surveys</a></li>
+                    <li><a id="btnCreateASurvey" class="dropdown-item" href="#">Create a Survey</a></li>
+                </ul>
+              </li>
+            </ul>
+            <form class="form-inline">
+                <button id="btnInstructorLogout" class="btn btn-outline-danger" type="button">Logout</button>
+            </form>
+        </div>
+    </nav>
+
+
+
+    <!----- Landing Page HTML ----->
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <form class="card col-12 col-md-10 col-lg-8" id="frmLogin">
+            <div class="card-body">
+                <h1 class="text-center mb-0 text-primary">Student Evaluation System</h1>
+                <hr/>
+                <h5 class="text-center mt-2 mb-3 font-weight-bold">Welcome to the Student Evaluation System!</h5>
+                <p class="text-center mb-4">This application is intended to help students in a group project evaluate each other in a secure, anonymous manner, and for professors to oversee the feedback provided in their courses.</p>
+                <h3 class="text-center mb-4">Login</h3>
+                <input id="txtLogUsername" class="form-control" type="email" placeholder="Email Address" aria-label="input email">
+                <input id="txtLogPassword" class="form-control mt-2" type="password" placeholder="Password" aria-label="input password">
+                <button class="btn btn-primary col-12 mt-2" type="button" id="btnLogin" aria-label="log in">Log In</button>
+                <div class="container d-flex justify-content-center">
+                    <button class="btn btn-link mt-2" type="button" id="btnForgotPassword" aria-label="forgot password?">Forgot password?</button>
+                </div>
+                <hr/>
+                <h6 class="text-center col-12 mt-0">Need an account?</h6>
+                <div class="container d-flex justify-content-center">
+                    <button class="btn btn-link" type="button" id="btnSwapFacultyLogin" aria-label="register a faculty account">Register faculty account</button>
+                    <button class="btn btn-link" type="button" id="btnSwapStudentLogin" aria-label="register a student account">Register student account</button>
+                </div>
+            </div>
+        </form>
+        <form class="card col-12 col-md-10 col-lg-8" id="frmRegisterFaculty" style="display: none;">
+            <div class ="card-body">
+                <h3 class="text-center mb-4 ">Faculty Registration Form</h3>
+                <fieldset>
+                    <legend class="font-weight-bold h6">Full Name</legend>
+                    <input id="txtFirstName" class="form-control mt-2" type="text" placeholder="First Name" aria-label="enter your first name">
+                    <input id="txtLastName" class="form-control mt-2" type="text" placeholder="Last Name" aria-label="enter your last name">
+                </fieldset>
+                <fieldset class="mt-4">
+                    <legend class="font-weight-bold h6">Account Information</legend>
+                    <input id="txtRegEmail" class="form-control mt-2" type="email" placeholder="Email Address" aria-label="enter your email address">
+                    <input id="txtRegPassword" class="form-control mt-2" type="password" placeholder="Password" aria-label="enter your password">
+                    <input id="txtConfirmPassword" class="form-control mt-2" type="password" placeholder="Confirm Password" aria-label="confirm your password">
+                </fieldset>
+                <hr/>
+                <div style="text-align: center;">
+                    <button class="btn btn-primary col-12 mt-2" type="button" id="btnRegisterFaculty" aria-label="register button">Register</button>
+                    <button id="btnFacultyCancel" class="btn btn-link mt-2" type="button" aria-label="cancel button">Cancel</button>
+                </div>
+            </div>
+        </form>
+        <form class="card col-12 col-md-10 col-lg-8" id="frmRegisterStudent" style="display: none;">
+            <div class ="card-body">
+                <h3 class="text-center mb-4 ">Student Registration Form</h3>
+                <fieldset>
+                    <legend class="font-weight-bold h6">Full Name</legend>
+                    <input id="txtStudentFirstName" class="form-control mt-2" type="text" placeholder="First Name" aria-label="enter your first name">
+                    <input id="txtStudentLastName" class="form-control mt-2" type="text" placeholder="Last Name" aria-label="enter your last name">
+                </fieldset>
+                <fieldset class="mt-4">
+                    <legend class="font-weight-bold h6">Account Information</legend>
+                    <input id="txtRegStudentEmail" class="form-control mt-2" type="email" placeholder="Email Address" aria-label="enter your email address">
+                    <input id="txtRegStudentPassword" class="form-control mt-2" type="password" placeholder="Password" aria-label="enter your password">
+                    <input id="txtConfirmStudentPassword" class="form-control mt-2" type="password" placeholder="Confirm Password" aria-label="confirm your password">
+                </fieldset>
+                <fieldset class="mt-4">
+                    <legend class="font-weight-bold h6">Contact Information</legend>
+                    <input id="txtPhone" class="form-control mt-2" type="tel" placeholder="Phone Number" aria-label="enter your phone number">
+                    <input id="txtDiscord" class="form-control mt-2" type="text" placeholder="Discord Username" aria-label="enter your discord username if applicable">
+                    <input id="txtTeams" class="form-control mt-2" type="email" placeholder="Microsoft Teams Email" aria-label="enter your microsoft teams email">
+                </fieldset>
+                <hr/>
+                <div style="text-align: center;">
+                    <button class="btn btn-primary col-12 mt-2" type="button" id="btnRegisterStudent" aria-label="register button">Register</button>
+                    <button id="btnStudentCancel" class="btn btn-link mt-2" type="button" aria-label="cancel button">Cancel</button>
+                </div>
+            </div>
+        </form>
+        <form class="card col-12 col-md-10 col-lg-8" id="frmForgotPassword" style="display: none;">
+            <div class="card-body">
+                <h3 class="text-center mb-4">Reset Your Password</h3>
+                <input id="txtForgotEmail" class="form-control mt-2" type="email" placeholder="Email Address" aria-label="enter your email address">
+                <input id="txtForgotPassword" class="form-control mt-2" type="password" placeholder="New Password" aria-label="enter your new password">
+                <input id="txtConfirmForgotPassword" class="form-control mt-2" type="password" placeholder="Confirm New Password" aria-label="confirm your new password">
+            </div>
+            <hr/>
+            <div class="container d-flex justify-content-around mb-4">
+                <button class="btn btn-primary mt-2" type="button" id="btnResetPassword" aria-label="reset password">Reset Password</button>
+                <button id="btnForgotPasswordCancel" class="btn btn-link mt-2" type="button" aria-label="cancel button">Cancel</button>
+            </div>
+        </form>
+
+
+
+        <!----- Instructor Interface HTML ----->
+        <form id="frmCourseList" class="card col-12 align-self-start mt-5" style="display: none;">
+            <div class="card-body">
+                <div class="card-title container d-flex justify-content-between">
+                    <h3 class="text-center">Course List</h3>
+                    <button id="btnAddCourse" class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#courseModal">Add Course</button>
+                </div>
+                <table id="tblCourses" class="table table-striped table-bordered mt-4">
+                    <thead>
+                        <tr>
+                            <th scope="col">Course ID</th>
+                            <th scope="col">Course Name</th>
+                            <th scope="col">Course Section</th>
+                            <th scope="col">Groups</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tblCoursesBody">
+                        <!-- Course rows will be populated here by populateCourseList() -->
+                    </tbody>
+                </table>
+            </div>
+        </form>
+        <div id="frmCreateASurvey" class="card col-12 align-self-start mt-5" style="display: none;">
+            <div class="card-body">
+                <h3 class="text-center">Create a Survey</h3>
+                <hr/>
+                <p class="text-center">The Header will be the title of the survey</p>
+                <div id="build-wrap"></div>
+            </div>
+        </div>
+        <div id="frmViewSurveys" class="card col-12 align-self-start mt-5" style="display: none;">
+            <div class="card-body">
+                <h3 class="text-center">Surveys</h3>
+            </div>
+            <div class="table-responsive-xl">
+                <table id="tblSurveys" class="table table-striped table-bordered mt-4">
+                    <thead>
+                        <tr>
+                            <th scope="col">Survey</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tblSurveysBody">
+                        <!-- Surveys are dynamically populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Modals for Instructor -->
+        <div id="courseModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Course</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <label for="txtCourseID">Course ID</label>
+                        <input type="text" id="txtCourseID" class="form-control mb-3" placeholder="Enter course ID">
+                        <label for="txtCourseName">Course Name</label>
+                        <input type="text" id="txtCourseName" class="form-control mb-3" placeholder="Enter course name">
+                        <label for="txtCourseSection">Course Section</label>
+                        <input type="text" id="txtCourseSection" class="form-control mb-3" placeholder="Enter course section">
+                        <hr/>
+                        <label for="jsonStudentsFile">Upload Student List (JSON)</label>
+                        <input type="file" id="jsonStudentsFile" class="form-control" accept="application/json" aria-label="upload student JSON file">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="btnSaveCourse">Save Course</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="groupModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-xl justify-content-center" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 id="txtManageGroupName" class="modal-title font-weight-bold"></h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h4 class="font-weight-bold" style="text-align: center;">Groups</h4>
+                        <div class="table-responsive-xl">
+                            <table id="tblGroups" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Group Name</th>
+                                        <th scope="col">Members</th>
+                                        <th scope="col">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tblGroupsBody">
+                                    <!-- Group rows will be populated here by populateGroupModal() -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="d-flex justify-content-end mb-4">
+                            <button id="btnAddGroup" class="btn btn-primary" type="button">Add Group</button>
+                        </div>
+                        <h4 class="font-weight-bold" style="text-align: center;">Students</h4>
+                        <div class="table-responsive-xl">
+                            <table id="tblCourseStudents" class="table table-striped table-bordered mb-2">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Student ID</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Phone</th>
+                                        <th scope="col">Discord</th>
+                                        <th scope="col">Teams</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tblCourseStudentsBody">
+                                    <!-- Student rows will be populated by populateGroupModal() -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="addGroupModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Group</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <label for="txtManageGroupName">Group Name</label>
+                        <input type="text" id="txtGroupName" class="form-control" placeholder="Enter group name">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="btnSaveGroup">Save Group</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="editGroupModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Group Members</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h4 class="font-weight-bold" style="text-align: center;">Group Members</h4>
+                        <div class="table-responsive-xl">
+                            <table id="tblEditGroup" class="table table-striped table-bordered mb-2">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Student ID</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tblEditGroupBody">
+                                    <!-- Group member rows will be populated here -->
+                                </tbody>
+                            </table>
+                            <div class="d-flex justify-content-end mb-4">
+                                <button id="btnAddMember" class="btn btn-primary" type="button">Add Member</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="addMemberModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Group Member</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="table-responsive-xl">
+                            <table id="tblStudentsToAdd" class="table table-striped table-bordered mb-2">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Student ID</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tblStudentsToAddBody">
+                                    <!-- Student rows will be populated here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://formbuilder.online/assets/js/form-builder.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-formBuilder/3.19.13/form-builder.min.js" integrity="sha512-0u8MszbJ5ba39TXB/ziqLEsHVRtIHGe4i7DwFtNPckZNS9pyDquT1iYOm6rByQLuTfbfiK0z1HrKh4IEFXO2wA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-formBuilder/3.19.13/form-render.min.js" integrity="sha512-EPUz/LuY+rv4teR9OdKqua6q5V5ixMBv7yAe96C0Chn4SGg1dd2sO5cj+bDCOK1LmzSfxK2poqcGZqD0NTQZ6Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        /*-----Landing Page Code-----*/
+        document.querySelector("#btnLogin").addEventListener("click", (e) => {
+            const regEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+            let strUsername = document.querySelector("#txtLogUsername").value
+            const strPassword = $('#txtLogPassword').val()
+            strUsername = strUsername.toLowerCase()
+            let blnError = false
+            let strMessage = ''
+
+            if(!regEmail.test(strUsername)){
+                blnError = true
+                strMessage += '<p class="mb-0 mt-0">Enter a valid email address</p>'
+            }
+            if(strPassword.length < 1){
+                blnError = true
+                strMessage += '<p class="mb-0 mt-0">Password Cannot Be Blank</p>'
+            }
+            
+            if(blnError) {
+                Swal.fire({
+                    title: "Error!",
+                    html: strMessage,
+                    icon: "error"
+                });
+            } else {
+                // if the user exists in the database, log them in
+                fetch(`http://localhost:8000/users/${strUsername}`, {
+                    method: "GET",
+                    headers: {"Content-Type": "application/json"}
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.user) {
+                        Swal.fire({
+                            title: "Error!",
+                            text: "User not found!",
+                            icon: "error"
+                        });
+                    }
+                    else {
+                        if (data.user.Password !== strPassword) {
+                            Swal.fire({
+                                title: "Error!",
+                                text: "Incorrect Password!",
+                                icon: "error"
+                            });
+                        }
+                        else {
+                            Swal.fire({
+                                title: "Success!",
+                                text: "Login Successful!",
+                                icon: "success"
+                            });
+                            if (strUsername.includes(".edu")) {
+                                $('#frmLogin').trigger('reset');
+                                $('#frmLogin').slideUp('fast');
+                                setTimeout(function() {
+                                    $('#frmCourseList').slideDown('fast');
+                                }, 400);
+                                fetchCourses().then(() => {
+                                    populateCourseList();
+                                })
+                                $('#instructorNavbar').show();
+                            }
+                            else {
+                                window.location.href = "student.html";
+                            }
+                        }
+                    }
+                })
+                .catch(error => console.error('Error',error))
+                // If the email contains ".edu", redirect to instructor.html, else redirect to student.html
+            }
+        })
+        document.querySelector('#btnInstructorLogout').addEventListener('click', function() {
+            $('#frmCreateASurvey').slideUp('fast');
+            $('#frmCourseList').slideUp('fast');
+            setTimeout(function() {
+                $('#frmLogin').slideDown('fast');
+            }, 400)
+            $('#instructorNavbar').hide();
+        })
+        document.querySelector("#btnRegisterFaculty").addEventListener("click", (e) => {
+            const regEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+edu$/
+
+            let strUsername = document.querySelector('#txtRegEmail').value
+            const strPassword = document.querySelector('#txtRegPassword').value
+            const strConfirmPassword = document.querySelector('#txtConfirmPassword').value
+            let strFirstName = document.querySelector('#txtFirstName').value
+            let strLastName = document.querySelector('#txtLastName').value
+
+            let blnError = false
+            let strMessage = ''
+            
+            if(!regEmail.test(strUsername)){
+                blnError = true
+                strMessage += '<p class="mb-0 mt-0">Enter a valid faculty email address (.edu)</p>'
+            }
+
+            if(strPassword.length < 1){
+                blnError = true
+                strMessage += '<p class="mb-0 mt-0">Password cannot be blank</p>'
+            }
+
+            if(strPassword !== strConfirmPassword){
+                blnError = true
+                strMessage += '<p class="mb-0 mt-0">Passwords do not match</p>'
+            }
+
+            if(strFirstName.length < 1){
+                blnError = true
+                strMessage += '<p class="mb-0 mt-0">First Name cannot be blank</p>'
+            }
+
+            if(strLastName.length < 1){
+                blnError = true
+                strMessage += '<p class="mb-0 mt-0">Last Name cannot be blank</p>'
+            }
+
+            if(blnError) {
+                Swal.fire({
+                    title: "Error!",
+                    html: strMessage,
+                    icon: "error"
+                });
+            } else {
+                fetch('http://localhost:8000/users', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        FirstName: strFirstName,
+                        LastName: strLastName,
+                        Email: strUsername,
+                        Password: strPassword
+                    })
+                }).then(res => {
+                    if (res.status !== 201) {
+                        throw new Error('Network response was not ok');
+                    }
+                });
+                Swal.fire({
+                    title: "Success!",
+                    text: "Registration Successful.",
+                    icon: "success"
+                });
+                $('#frmRegisterFaculty').trigger('reset');
+                $('#frmRegisterFaculty').slideUp('fast');
+                setTimeout(function() {
+                    $('#frmLogin').slideDown('fast');
+                }, 400);
+            }
+        });
+
+        document.querySelector("#btnRegisterStudent").addEventListener("click", (e) => {
+            const regEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+            const regPhone = /^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/
+            let strEmail = document.querySelector('#txtRegStudentEmail').value
+            const strPassword = document.querySelector('#txtRegStudentPassword').value
+            const strConfirmPassword = document.querySelector('#txtConfirmStudentPassword').value
+            let strFirstName = document.querySelector('#txtStudentFirstName').value
+            let strLastName = document.querySelector('#txtStudentLastName').value
+            let strPhone = document.querySelector('#txtPhone').value
+            let strDiscord = document.querySelector('#txtDiscord').value
+            let strTeams = document.querySelector('#txtTeams').value
+
+            let blnError = false
+            let strMessage = ''
+            
+            if(!regEmail.test(strEmail)){
+                blnError = true
+                strMessage += '<p class="mb-0 mt-0">Enter a valid email address</p>'
+            }
+
+            if(strPassword.length < 1){
+                blnError = true
+                strMessage += '<p class="mb-0 mt-0">Password cannot be blank</p>'
+            }
+
+            if(strPassword !== strConfirmPassword){
+                blnError = true
+                strMessage += '<p class="mb-0 mt-0">Passwords do not match</p>'
+            }
+
+            if(strFirstName.length < 1){
+                blnError = true
+                strMessage += '<p class="mb-0 mt-0">First Name cannot be blank</p>'
+            }
+
+            if(strLastName.length < 1){
+                blnError = true
+                strMessage += '<p class="mb-0 mt-0">Last name cannot be blank</p>'
+            }
+
+            if(!regPhone.test(strPhone)){
+                blnError = true
+                strMessage += '<p class="mb-0 mt-0">Enter a valid US phone number</p>'
+            }
+
+            if(strDiscord.length < 1){
+                blnError = true
+                strMessage += '<p class="mb-0 mt-0">Discord username cannot be blank</p>'
+            }
+
+            if(!regEmail.test(strTeams)){
+                blnError = true
+                strMessage += '<p class="mb-0 mt-0">Enter a valid Microsoft Teams email address</p>'
+            }
+
+            if(blnError) {
+                Swal.fire({
+                    title: "Error!",
+                    html: strMessage,
+                    icon: "error"
+                });
+            } else {
+                Swal.fire({
+                    title: "Success!",
+                    text: "Registration Successful.",
+                    icon: "success"
+                });
+                $('#frmRegisterStudent').trigger('reset');
+                $('#frmRegisterStudent').slideUp('fast');
+                setTimeout(function() {
+                    $('#frmLogin').slideDown('fast');
+                }, 400);
+            }
+        });
+
+        $('#btnSwapFacultyLogin').on('click',function(){
+            $('#frmLogin').slideUp('fast')
+            setTimeout(function() {
+                $('#frmRegisterFaculty').slideDown('fast');
+            }, 400);
+        });
+
+        $('#btnSwapStudentLogin').on('click',function(){
+            $('#frmLogin').slideUp('fast')
+            setTimeout(function() {
+                $('#frmRegisterStudent').slideDown('fast');
+            }, 400);
+        });
+
+        $('#btnFacultyCancel').on('click', function() {
+            $('#frmRegisterFaculty').slideUp('fast');
+            setTimeout(function() {
+                $('#frmLogin').slideDown('fast');
+            }, 400);
+        });
+
+        $('#btnStudentCancel').on('click', function() {
+            $('#frmRegisterStudent').slideUp('fast');
+            setTimeout(function() {
+                $('#frmLogin').slideDown('fast');
+            }, 400);
+        });
+
+        $('#btnForgotPassword').on('click', function() {
+            $('#frmLogin').slideUp('fast');
+            setTimeout(function() {
+                $('#frmForgotPassword').slideDown('fast');
+            }, 400);
+        })
+
+        $('#btnForgotPasswordCancel').on('click', function() {
+            $('#frmForgotPassword').slideUp('fast');
+            setTimeout(function() {
+                $('#frmLogin').slideDown('fast');
+            }, 400);
+        })
+
+        $('#btnResetPassword').on('click', function() {
+            const regEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+            let strEmail = document.querySelector('#txtForgotEmail').value
+            const strPassword = document.querySelector('#txtForgotPassword').value
+            const strConfirmPassword = document.querySelector('#txtConfirmForgotPassword').value
+
+            let blnError = false
+            let strMessage = ''
+            
+            if(!regEmail.test(strEmail)){
+                blnError = true
+                strMessage += '<p class="mb-0 mt-0">Enter a valid email address</p>'
+            }
+
+            if(strPassword.length < 1){
+                blnError = true
+                strMessage += '<p class="mb-0 mt-0">Password cannot be blank</p>'
+            }
+
+            if(strPassword !== strConfirmPassword){
+                blnError = true
+                strMessage += '<p class="mb-0 mt-0">Passwords do not match</p>'
+            }
+
+            if(blnError) {
+                Swal.fire({
+                    title: "Error!",
+                    html: strMessage,
+                    icon: "error"
+                });
+            } else {
+                Swal.fire({
+                    title: "Success!",
+                    text: "Password Reset Successful",
+                    icon: "success"
+                });
+                $('#frmForgotPassword').trigger('reset');
+                $('#frmForgotPassword').slideUp('fast');
+                setTimeout(function() {
+                    $('#frmLogin').slideDown('fast');
+                }, 400);
+            }
+        })
+
+
+
+        /*-----Instructor Interface Code-----*/
+        let courseList = [];
+        let arrSurveys = [];
+
+        async function fetchCourses() {
+            courseList = [];
+            studentList = [];
+            let arrStudents = await fetchStudents();
+            const response = await fetch('./courses.json').then(res => res.json()).catch(err => {
+                console.error('Error fetching courses:', err);
+            })
+            response.forEach(course => {
+                courseList.push(course);
+                course.students = arrStudents;
+                console.log(course);
+            })
+
+        }
+
+        async function fetchStudents() {
+            let studentList = [];
+            const response = await fetch('./students.json').then(res => res.json()).catch(err => {
+                console.error('Error fetching students:', err);
+            })
+            response.forEach(student => {
+                studentList.push(student);
+            })
+
+            return studentList;
+        }
+    
+    
+        function populateCourseList() {
+            let tableBody = document.querySelector('#tblCoursesBody');
+            tableBody.innerHTML = '';
+            courseList.forEach((course, index) => {
+                let row = document.createElement('tr');
+                row.innerHTML = `
+                    <td id="txtCourseID${index}">${course.strCourseID}</td>
+                    <td id="txtCourseName${index}">${course.strCourseName}</td>
+                    <td id="txtCourseSection${index}">${course.strCourseSection}</td>
+                    <td id="txtGroups${index}">
+                        <div class="d-flex justify-content-between">
+                            ${course.groups.length}
+                            <button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#groupModal" aria-label="manage group">Manage</button>
+                        </div>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+                document.querySelector(`#txtGroups${index} button`).addEventListener('click', function() {
+                    $('#groupModal').modal('show');
+                    document.querySelector('#txtManageGroupName').innerHTML = `Manage ${course.strCourseName}-${course.strCourseSection}`;
+                    populateGroupModal(`${course.strCourseName}`);
+                });
+            });
+        }
+    
+    
+        function populateGroupModal(courseName) {
+            const groupTableBody = document.querySelector('#tblGroupsBody');
+            const courseStudentsBody = document.querySelector('#tblCourseStudentsBody');
+
+            groupTableBody.innerHTML = '';
+            courseStudentsBody.innerHTML = '';
+
+            let groups = courseList.find(course => course.strCourseName == courseName).groups;
+            let students = courseList.find(course => course.strCourseName == courseName).students;
+
+            groups.forEach((group, index) => {
+                let row = document.createElement('tr');
+                row.innerHTML = `
+                    <td id="txtGroupName${index}">${group.strGroupName}</td>
+                    <td id="txtGroupMembers${index}">${group.members.length}</td>
+                    <td id="txtGroupActions${index}" style="width: 33%">
+                        <div class="d-flex justify-content-around">
+                            <button id="btnEditMembers${index}" class="btn btn-secondary btn-sm" type="button" aria-label="Edit members">Edit Members</button>
+                            <button id="btnRemoveGroup${index}" class="btn btn-danger btn-sm" type="button" aria-label="remove group">Remove</button>
+                        </div>
+                    </td>
+                `;
+                groupTableBody.appendChild(row);
+                document.querySelector(`#btnEditMembers${index}`).addEventListener('click', function() {
+                    // View members logic here
+                    $('#editGroupModal').modal('show');
+                    populateEditGroupModal(courseName, group);
+                    document.querySelector('#btnAddMember').addEventListener('click', function() {
+                        $('#addMemberModal').modal('show');
+                        populateStudentsToAdd(courseName, group);
+                    })
+                });
+                document.querySelector(`#btnRemoveGroup${index}`).addEventListener('click', function() {
+                    // Remove group logic here
+                    removeGroup(courseName, index);
+                    populateCourseList();
+                })
+            });
+            students.forEach((student, index) => {
+                let row = document.createElement('tr');
+                row.innerHTML = `
+                    <td id="txtStudentID${index}">${student.strStudentID}</td>
+                    <td id="txtStudentName${index}">${student.strStudentName}</td>
+                    <td id="txtStudentEmail${index}">${student.strStudentEmail}</td>
+                    <td id="txtStudentPhone${index}">${student.strStudentPhone}</td>
+                    <td id="txtStudentDiscord${index}">${student.strStudentDiscord}</td>
+                    <td id="txtStudentTeams${index}">${student.strStudentTeamsEmail}</td>
+                `;
+                courseStudentsBody.appendChild(row);
+            });
+
+        }
+
+        function populateEditGroupModal(courseName, group) {
+            const editGroupTableBody = document.querySelector('#tblEditGroupBody');
+            editGroupTableBody.innerHTML = '';
+
+
+            group.members.forEach((member, index) => {
+                let row = document.createElement('tr');
+                row.innerHTML = `
+                    <td id="txtMemberID${index}">${member.strStudentID}</td>
+                    <td id="txtMemberName${index}">${member.strStudentName}</td>
+                    <td id="txtMemberEmail${index}">
+                        <div class="d-flex justify-content-between">
+                            ${member.strStudentEmail}
+                            <button id="btnRemoveMember${index}" class="btn btn-danger btn-sm" type="button" aria-label="remove member">Remove</button>
+                        </div>
+                    </td>
+                `;
+                editGroupTableBody.appendChild(row);
+                document.querySelector(`#btnRemoveMember${index}`).addEventListener('click', function() {
+                    // Remove member logic here
+                    group.members.splice(index, 1);
+                    populateEditGroupModal(courseName, group);
+                    populateGroupModal(courseName);
+                });
+            }); 
+        }
+
+        function populateStudentsToAdd(courseName, group) {
+            const studentsToAddTableBody = document.querySelector('#tblStudentsToAddBody');
+            studentsToAddTableBody.innerHTML = '';
+
+            let students = courseList.find(course => course.strCourseName == courseName).students;
+
+            students.forEach((student, index) => {
+                let row = document.createElement('tr');
+                row.innerHTML = `
+                    <td id="txtStudentID${index}">${student.strStudentID}</td>
+                    <td id="txtStudentName${index}">${student.strStudentName}</td>
+                    <td id="txtStudentEmail${index}">
+                        <div class="d-flex justify-content-between align-items-center">
+                            ${student.strStudentEmail}
+                            <button id="btnAddStudentFromList${index}" class="btn btn-secondary btn-sm" type="button" aria-label="add student to group">Add</button>
+                        </div>
+                    </td>
+                `;
+                studentsToAddTableBody.appendChild(row);
+                document.querySelector(`#btnAddStudentFromList${index}`).addEventListener('click', function() {
+                    addStudentToGroup(group, student, courseName);
+                    populateGroupModal(courseName);
+                    $('#addMemberModal').modal('hide');
+                })
+            });
+        }
+
+        function addStudentToGroup(group, student, courseName) {
+            group.members.push(student);
+            console.log(group.members);
+            populateEditGroupModal(courseName, group);
+        }
+
+        function removeGroup(courseName, groupIndex) {
+            const course = courseList.find(course => course.strCourseName == courseName);
+            if (course) {
+                course.groups.splice(groupIndex, 1);
+                populateGroupModal(courseName);
+            } else {
+                swal.fire({
+                    title: 'Error!',
+                    icon: 'error',
+                    text: 'Course not found'
+                });
+            }
+        }
+    
+    
+        document.querySelector('#btnAddGroup').addEventListener('click', function () {
+            $('#addGroupModal').modal('show');
+        })
+    
+    
+        document.querySelector('#btnSaveGroup').addEventListener('click', function () {
+            const groupName = document.querySelector('#txtGroupName').value.trim();
+            if (groupName.length < 1) {
+                swal.fire({
+                    title: 'Error!',
+                    icon: 'error',
+                    text: 'Please enter a group name'
+                });
+            } else {
+                let courseName = document.querySelector('#txtManageGroupName').innerHTML.split('-')[0].trim();
+                courseName = courseName.replace('Manage ', '');
+                const course = courseList.find(course => course.strCourseName == courseName);
+                if (course) {
+                    course.groups.push({
+                        // generate a unique ID instead of using the length of the array
+                        strGroupID: course.groups.length + 1,
+                        strGroupName: groupName,
+                        members: []
+                    });
+                    populateGroupModal(courseName);
+                    document.querySelector('#txtGroupName').value = '';
+                    populateCourseList();
+                    $('#addGroupModal').modal('hide');
+                } else {
+                    swal.fire({
+                        title: 'Error!',
+                        icon: 'error',
+                        text: 'Course not found'
+                    });
+                }
+            }
+
+        });
+    
+    
+        function addCourse(strCourseID, strCourseName, strCourseSection) {
+            courseList.push({
+                strCourseID: strCourseID,
+                strCourseName: strCourseName,
+                strCourseSection: strCourseSection,
+                students: [],
+                groups: []
+            });
+        }
+    
+    
+        document.querySelector('#btnSaveCourse').addEventListener('click', function() {
+            // in the future, strCourseID will be generated by the backend - for now, it is the value in the input field
+            const strCourseID = document.querySelector('#txtCourseID').value;
+            const strCourseName = document.querySelector('#txtCourseName').value;
+            const strCourseSection = document.querySelector('#txtCourseSection').value;
+    
+            let blnError = false;
+            let strMessage = '';
+            if (strCourseName.length < 1) {
+                blnError = true;
+                strMessage += '<p>Please enter a course name</p>';
+            }
+            if (strCourseID.length < 1) {
+                blnError = true;
+                strMessage += '<p>Please enter a course ID</p>'
+            }
+            if (strCourseSection.length < 1) {
+                blnError = true;
+                strMessage += '<p>Please enter a course section</p>'
+            }
+            if (blnError) {
+                swal.fire({
+                    title: 'Error!',
+                    icon: 'error',
+                    html: strMessage
+                })
+            }
+            else {
+                swal.fire({
+                    title: 'Success!',
+                    icon: 'success',
+                    text: 'Course added successfully!'
+                });
+                document.querySelector('#txtCourseID').value = '';
+                document.querySelector('#txtCourseName').value = '';
+                document.querySelector('#txtCourseSection').value = '';
+                $('#courseModal').modal('hide');
+                addCourse(strCourseID, strCourseName, strCourseSection);
+                populateCourseList();
+            }
+        })
+
+        function destroyFormBuilder() {
+            $('#build-wrap').off().removeData().empty();
+        }
+
+        function loadSurveyTable() {
+            document.querySelector('#tblSurveysBody').innerHTML = ''
+            arrSurveys.forEach((survey, index) => {
+                const parsed = JSON.parse(survey);
+                const parsedAgain = JSON.parse(parsed);
+                let strHeader = 'Untitled Survey';
+                if (parsedAgain[0].type == 'header') {
+                    strHeader = parsedAgain[0].label
+                }
+                document.querySelector('#tblSurveysBody').innerHTML += `
+                    <td id="tblSurveyItem${index}">${strHeader}</td>
+                    <td id="actionButtons${index}" class="align-items-center" style="width: 30%;">
+                        <div class="d-flex justify-content-around">
+                            <button id="btnRemoveSurvey${index}" class="btn btn-danger btn-sm" type="button" aria-label="remove survey from table">Remove</button>
+                            <button id="btnViewSurvey${index}" class="btn btn-secondary btn-sm ml-2" type="button" aria-label="view this survey">Preview</button>
+                            <button id="btnSendSurvey${index}" class="btn btn-secondary btn-sm ml-2" type="button" aria-label="send surve to course">Send to Course</button>
+                        </div>
+                    </td>
+                    `;
+            })
+        }
+
+
+        // Event listeners for the navbar buttons
+        document.querySelector('#btnNavCourses').addEventListener('click', function() {
+            document.querySelector('#btnNavSurveys').classList.remove('active');
+            document.querySelector('#btnNavCourses').classList.add('active');
+            if (document.querySelector('#frmCourseList').style.display == 'none') {
+                destroyFormBuilder();
+                $('#frmCreateASurvey').slideUp('fast');
+                $('#frmViewSurveys').slideUp('fast');
+                setTimeout(function() {
+                    $('#frmCourseList').slideDown('fast');
+                }, 400);
+            }
+        })
+        document.querySelector('#btnCreateASurvey').addEventListener('click', function() {
+            if (!document.querySelector('#btnNavSurveys').classList.contains('active')) {
+                document.querySelector('#btnNavCourses').classList.remove('active')
+                document.querySelector('#btnNavSurveys').classList.add('active');
+            }
+            if (document.querySelector('#frmCreateASurvey').style.display == 'none') {
+                $('#frmViewSurveys').slideUp('fast');
+                $('#frmCourseList').slideUp('fast');
+                setTimeout(function() {
+                    $('#frmCreateASurvey').slideDown('fast');
+                }, 400);
+                jQuery($ => {
+                    let options = {
+                        onSave: function(evt, formData) {
+                            $('.render-wrap').formRender({formData});
+                            window.sessionStorage.setItem('formData', JSON.stringify(formData));
+                            arrSurveys.push(JSON.stringify(formData));
+                            console.log(arrSurveys);
+                            Swal.fire({
+                                title: "Success!",
+                                text: "Survey saved!",
+                                icon: "success"
+                            });
+                            destroyFormBuilder()
+                            $('#frmCreateASurvey').slideUp('fast');
+                            setTimeout(function() {
+                                $('#frmViewSurveys').slideDown('fast');
+                            }, 400);
+                            loadSurveyTable();
+                        },
+                    };
+                    const fbTemplate = document.getElementById('build-wrap');
+                    $(fbTemplate).formBuilder(options);
+                });
+            }
+        })
+        document.querySelector('#btnViewSurveys').addEventListener('click', function() {
+            if (!document.querySelector('#btnNavSurveys').classList.contains('active')) {
+                document.querySelector('#btnNavCourses').classList.remove('active')
+                document.querySelector('#btnNavSurveys').classList.add('active');
+            }
+            if (document.querySelector('#frmViewSurveys').style.display == 'none') {
+                destroyFormBuilder();
+                $('#frmCourseList').slideUp('fast');
+                $('#frmCreateASurvey').slideUp('fast');
+                setTimeout(function() {
+                    $('#frmViewSurveys').slideDown('fast');
+                }, 400);
+            }
+        })
+    </script>
+</body>
+</html>
