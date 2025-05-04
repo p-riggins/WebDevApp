@@ -39,10 +39,11 @@ app.get('/users/:email', (req, res) => {
 
 // This endpoint is used to create a new user in the database using a first name, last name, and email address
 app.post('/users', (req, res) => {
-    let comInsert = 'INSERT INTO tblUsers (FirstName, LastName, Email, CreationDateTime, LastLoginDateTime) VALUES (?,?,?,?,?)';
+    let comInsert = 'INSERT INTO tblUsers (FirstName, LastName, Email, CreationDateTime, LastLoginDateTime, Password) VALUES (?,?,?,?,?,?)';
     let strFirstName = req.body.FirstName;
     let strLastName = req.body.LastName;
     let strEmail = req.body.Email;
+    let strPassword = req.body.Password; // Not hashed yet for simplicity
 
     // CreationDateTime and LastLoginDateTime are set to the current date and time for user creation
     let strCreationDateTime = new Date(Date.now()).toISOString();
@@ -50,7 +51,7 @@ app.post('/users', (req, res) => {
 
 
     // Execute an SQL command to insert the new user into the database
-    db.run(comInsert, [strFirstName, strLastName, strEmail, strCreationDateTime, strLastLoginDateTime], function (err) {
+    db.run(comInsert, [strFirstName, strLastName, strEmail, strCreationDateTime, strLastLoginDateTime, strPassword], function (err) {
         if (err) {
             res.status(400).json({ error: err.message});
         } else {
@@ -61,13 +62,14 @@ app.post('/users', (req, res) => {
 
 // This endpoint is used to update an existing user in the database using their email as ID
 app.put('/users/:email', (req, res) => {
-    let comUpdate = 'UPDATE tblUsers SET FirstName = ?, LastName = ?, Email = ? WHERE Email = ?';
+    let comUpdate = 'UPDATE tblUsers SET FirstName = ?, LastName = ?, Email = ?, Password = ? WHERE Email = ?';
     let strFirstName = req.body.FirstName;
     let strLastName = req.body.LastName;
     let strEmail = req.body.Email;
+    let strPassword = req.body.Password;
     let strID = req.params.email;
 
-    db.run(comUpdate, [strFirstName, strLastName, strEmail, strID], function (err) {
+    db.run(comUpdate, [strFirstName, strLastName, strEmail, strID, strPassword], function (err) {
         if (err) {
             res.status(400).json({ error: err.message });
         } else {

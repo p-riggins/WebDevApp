@@ -363,26 +363,53 @@
                     icon: "error"
                 });
             } else {
-                Swal.fire({
-                    title: "Success!",
-                    text: "Login Successful!",
-                    icon: "success"
-                });
+                // if the user exists in the database, log them in
+                fetch(`http://localhost:8000/users/${strUsername}`, {
+                    method: "GET",
+                    headers: {"Content-Type": "application/json"}
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.user) {
+                        Swal.fire({
+                            title: "Error!",
+                            text: "User not found!",
+                            icon: "error"
+                        });
+                    }
+                    else {
+                        if (data.user.Password !== strPassword) {
+                            Swal.fire({
+                                title: "Error!",
+                                text: "Incorrect Password!",
+                                icon: "error"
+                            });
+                        }
+                        else {
+                            Swal.fire({
+                                title: "Success!",
+                                text: "Login Successful!",
+                                icon: "success"
+                            });
+                            if (strUsername.includes(".edu")) {
+                                $('#frmLogin').trigger('reset');
+                                $('#frmLogin').slideUp('fast');
+                                setTimeout(function() {
+                                    $('#frmCourseList').slideDown('fast');
+                                }, 400);
+                                fetchCourses().then(() => {
+                                    populateCourseList();
+                                })
+                                $('#instructorNavbar').show();
+                            }
+                            else {
+                                window.location.href = "student.html";
+                            }
+                        }
+                    }
+                })
+                .catch(error => console.error('Error',error))
                 // If the email contains ".edu", redirect to instructor.html, else redirect to student.html
-                if (strUsername.includes(".edu")) {
-                    $('#frmLogin').trigger('reset');
-                    $('#frmLogin').slideUp('fast');
-                    setTimeout(function() {
-                        $('#frmCourseList').slideDown('fast');
-                    }, 400);
-                    fetchCourses().then(() => {
-                        populateCourseList();
-                    })
-                    $('#instructorNavbar').show();
-                }
-                else {
-                    window.location.href = "student.html";
-                }
             }
         })
         document.querySelector('#btnInstructorLogout').addEventListener('click', function() {
@@ -437,6 +464,22 @@
                     icon: "error"
                 });
             } else {
+                fetch('http://localhost:8000/users', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        FirstName: strFirstName,
+                        LastName: strLastName,
+                        Email: strUsername,
+                        Password: strPassword
+                    })
+                }).then(res => {
+                    if (res.status !== 201) {
+                        throw new Error('Network response was not ok');
+                    }
+                });
                 Swal.fire({
                     title: "Success!",
                     text: "Registration Successful.",
