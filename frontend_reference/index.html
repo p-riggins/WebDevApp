@@ -555,6 +555,22 @@
                     icon: "error"
                 });
             } else {
+                fetch('http://localhost:8000/users', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        FirstName: strFirstName,
+                        LastName: strLastName,
+                        Email: strEmail,
+                        Password: strPassword
+                    })
+                }).then(res => {
+                    if (res.status !== 201) {
+                        throw new Error('Network response was not ok');
+                    }
+                });
                 Swal.fire({
                     title: "Success!",
                     text: "Registration Successful.",
