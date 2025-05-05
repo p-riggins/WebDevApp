@@ -774,3 +774,10 @@ span.success {
   }
 }
 
+.form-control:focus {
+  background-color: #ffffff;
+  color: inherit;
+  box-shadow: none;
+}
+
+
