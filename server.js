@@ -10,7 +10,6 @@ var app = express();
 app.use(cors());
 app.use(express.json());
 
-
 // users enpoints
 // This endpoint is used to retrieve all users from the database
 app.get('/users', (req, res) => {
@@ -335,6 +334,80 @@ app.delete('/enrollments/:courseNumber/:email', (req, res) => {
     });
 });
 
+// groupmembers endpoints
+
+// GET all group members
+app.get('/groupmembers', (req, res) => {
+    let comSelect = 'SELECT * FROM tblGroupMembers';
+    db.all(comSelect, function (err, result) {
+        if (err) {
+            res.status(400).json({ error: err.message });
+        } else {
+            res.status(200).json({ data: result });
+        }
+    });
+});
+
+// GET a specific group member using GroupID and UserID
+app.get('/groupmembers/:groupId/:userId', (req, res) => {
+    let comSelect = 'SELECT * FROM tblGroupMembers WHERE GroupID = ? AND UserID = ?';
+    let strGroupID = req.params.groupId;
+    let strUserID = req.params.userId;
+    db.get(comSelect, [strGroupID, strUserID], function (err, result) {
+        if (err) {
+            res.status(400).json({ error: err.message });
+        } else {
+            res.status(200).json({ groupMember: result });
+        }
+    });
+});
+
+// POST a new group member
+app.post('/groupmembers', (req, res) => {
+    let comInsert = 'INSERT INTO tblGroupMembers (GroupID, UserID) VALUES (?, ?)';
+    let strGroupID = req.body.GroupID;
+    let strUserID = req.body.UserID;
+
+    db.run(comInsert, [strGroupID, strUserID], function (err) {
+        if (err) {
+            res.status(400).json({ error: err.message });
+        } else {
+            res.status(201).json({ message: 'Group member created successfully', id: this.lastID });
+        }
+    });
+});
+
+// PUT to update a group member (changes user in a group)
+app.put('/groupmembers/:groupId/:userId', (req, res) => {
+    let comUpdate = 'UPDATE tblGroupMembers SET GroupID = ?, UserID = ? WHERE GroupID = ? AND UserID = ?';
+    let strGroupID = req.body.GroupID;
+    let strUserID = req.body.UserID;
+    let strOldGroupID = req.params.groupId;
+    let strOldUserID = req.params.userId;
+
+    db.run(comUpdate, [strGroupID, strUserID, strOldGroupID, strOldUserID], function (err) {
+        if (err) {
+            res.status(400).json({ error: err.message });
+        } else {
+            res.status(201).json({ message: 'Group member updated successfully' });
+        }
+    });
+});
+
+// DELETE a group member
+app.delete('/groupmembers/:groupId/:userId', (req, res) => {
+    let comDelete = 'DELETE FROM tblGroupMembers WHERE GroupID = ? AND UserID = ?';
+    let strGroupID = req.params.groupId;
+    let strUserID = req.params.userId;
+
+    db.run(comDelete, [strGroupID, strUserID], function (err) {
+        if (err) {
+            res.status(400).json({ error: err.message });
+        } else {
+            res.status(201).json({ message: 'Group member deleted successfully' });
+        }
+    });
+});
 
 app.listen(HTTP_PORT,() => {
     console.log('App listening on',HTTP_PORT)
