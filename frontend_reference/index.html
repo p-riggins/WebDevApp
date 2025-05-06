@@ -680,26 +680,42 @@
             courseList = [];
             studentList = [];
             let arrStudents = await fetchStudents();
-            const response = await fetch('./courses.json').then(res => res.json()).catch(err => {
+            
+            const response = await fetch('http://localhost:8000/courses').then(res => res.json()).catch(err => {
                 console.error('Error fetching courses:', err);
             })
-            response.forEach(course => {
-                courseList.push(course);
-                course.students = arrStudents;
-                console.log(course);
-            })
 
+            response.data.forEach(course => {
+                courseList.push({
+                    strCourseName: course.CourseName,
+                    strCourseNumber: course.CourseNumber,
+                    strCourseSection: course.CourseSection,
+                    strCourseTerm: course.CourseTerm,
+                    strStartDate: course.StartDate,
+                    strEndDate: course.EndDate
+                })
+            })
         }
 
         async function fetchStudents() {
             let studentList = [];
-            const response = await fetch('./students.json').then(res => res.json()).catch(err => {
+            // const response = await fetch('./students.json').then(res => res.json()).catch(err => {
+            //     console.error('Error fetching students:', err);
+            // })
+            // response.forEach(student => {
+            //     studentList.push(student);
+            // })
+
+            const response = await fetch('http://localhost:8000/users').then(res => res.json()).catch(err => {
                 console.error('Error fetching students:', err);
             })
-            response.forEach(student => {
-                studentList.push(student);
+            response.data.forEach(student => {
+                studentList.push({
+                    strFirstName: student.FirstName,
+                    strLastName: student.LastName,
+                    strEmail: student.Email
+                })
             })
-
             return studentList;
         }
     
@@ -710,12 +726,12 @@
             courseList.forEach((course, index) => {
                 let row = document.createElement('tr');
                 row.innerHTML = `
-                    <td id="txtCourseID${index}">${course.strCourseID}</td>
+                    <td id="txtCourseID${index}">${course.strCourseNumber}</td>
                     <td id="txtCourseName${index}">${course.strCourseName}</td>
                     <td id="txtCourseSection${index}">${course.strCourseSection}</td>
                     <td id="txtGroups${index}">
                         <div class="d-flex justify-content-between">
-                            ${course.groups.length}
+                            <span></span>
                             <button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#groupModal" aria-label="manage group">Manage</button>
                         </div>
                     </td>
