@@ -73,7 +73,7 @@ app.put('/users/:email', (req, res) => {
     let strPassword = req.body.Password;
     let strID = req.params.email;
 
-    db.run(comUpdate, [strFirstName, strLastName, strEmail, strID, strPassword], function (err) {
+    db.run(comUpdate, [strFirstName, strLastName, strEmail, strPassword, strID], function (err) {
         if (err) {
             res.status(400).json({ error: err.message });
         } else {
